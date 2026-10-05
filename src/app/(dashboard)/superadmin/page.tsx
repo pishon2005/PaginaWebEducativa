@@ -8,7 +8,7 @@ export default function SuperadminDashboardPage() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#718176]">Gobierno de plataforma</p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#183a2b]">Panel superadmin</h1>
-          <p className="mt-2 max-w-xl text-sm leading-6 text-[#718078]">Control global de cuentas administrativas, roles y permisos de Aula Norte.</p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#718078]">Control global de cuentas administrativas, roles y permisos de ProyectoClases.</p>
         </div>
         <Link href="/superadmin/administradores" className="inline-flex items-center justify-center gap-2 rounded-md bg-[#173c2d] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#24543e]"><UserPlus className="size-4" aria-hidden="true" /> Administradores</Link>
       </section>

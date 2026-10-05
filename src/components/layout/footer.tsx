@@ -2,7 +2,7 @@ export function Footer() {
   return (
     <footer className="border-t py-8">
       <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-        © 2026 Aula Norte. Todos los derechos reservados.
+        © 2026 ProyectoClases. Todos los derechos reservados.
       </div>
     </footer>
   );

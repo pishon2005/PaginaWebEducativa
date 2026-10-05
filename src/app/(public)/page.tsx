@@ -54,7 +54,7 @@ export default function HomePage() {
               El conocimiento transforma cuando encuentras tu camino.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-[#627268]">
-              Aula Norte conecta a estudiantes y docentes en una experiencia
+              ProyectoClases conecta a estudiantes y docentes en una experiencia
               pensada para aprender con claridad, acompañamiento y propósito.
             </p>
             <Link
@@ -238,7 +238,7 @@ export default function HomePage() {
                 {
                   quote:
                     "Poder compartir mis dudas y recibir orientación hace la diferencia en cada etapa.",
-                  name: "Estudiante de Aula Norte",
+                  name: "Estudiante de ProyectoClases",
                   detail: "Experiencia de aprendizaje",
                 },
               ].map((testimonial) => (

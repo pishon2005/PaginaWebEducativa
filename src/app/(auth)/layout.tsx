@@ -18,24 +18,24 @@ export default function AuthLayout({
           <span className="grid size-9 place-items-center rounded-full bg-[#173c2d] text-white">
             <GraduationCap className="size-5" aria-hidden="true" />
           </span>
-          <span className="text-sm font-bold tracking-tight">Aula Norte</span>
+          <span className="text-sm font-bold tracking-tight">PoryectoClases</span>
         </Link>
         <div className="relative z-10 mb-8 max-w-lg rounded-3xl border border-white/70 bg-white/75 p-6 text-[#173a2c] shadow-[0_20px_55px_-40px_rgba(24,58,43,0.55)] backdrop-blur-md xl:p-8">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#3e6950]">Un lugar para avanzar</p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight xl:text-5xl">Tu próxima meta empieza con una buena lección.</h1>
           <p className="mt-4 max-w-md text-sm leading-6 text-[#456253]">Aprende a tu ritmo, comparte tus dudas y encuentra el camino que sigue.</p>
         </div>
-        <p className="relative z-10 text-xs font-medium text-white/90 drop-shadow-sm">© 2026 Aula Norte · Aprende con propósito</p>
+        <p className="relative z-10 text-xs font-medium text-white/90 drop-shadow-sm">© 2026 ProyectoClases · Aprende con propósito</p>
       </section>
       <section className="flex min-h-screen flex-col items-center justify-center px-5 py-10 sm:px-10">
         <Link href="/" className="mb-8 flex items-center gap-2 text-[#193b2b] lg:hidden">
           <span className="grid size-9 place-items-center rounded-full bg-[#173c2d] text-white">
             <GraduationCap className="size-5" aria-hidden="true" />
           </span>
-          <span className="text-sm font-bold tracking-tight">Aula Norte</span>
+          <span className="text-sm font-bold tracking-tight">ProyectoClases</span>
         </Link>
         <div className="w-full max-w-[440px]">{children}</div>
-        <p className="mt-8 text-center text-xs text-[#87928a] lg:hidden">© 2026 Aula Norte · Aprende con propósito</p>
+        <p className="mt-8 text-center text-xs text-[#87928a] lg:hidden">© 2026 ProyectoClases · Aprende con propósito</p>
       </section>
     </main>
   );

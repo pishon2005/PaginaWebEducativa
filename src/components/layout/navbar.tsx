@@ -14,7 +14,7 @@ export function Navbar() {
           <span className="grid size-9 place-items-center rounded-xl bg-[#173c2d] text-white">
             <GraduationCap className="size-5" aria-hidden="true" />
           </span>
-          <span className="font-bold tracking-tight">Aula Norte</span>
+          <span className="font-bold tracking-tight">ProyectoClases</span>
         </Link>
         <nav aria-label="Navegación pública" className="hidden items-center gap-7 md:flex">
           <Link href="/#experiencia" className="text-sm font-medium text-[#617067] transition hover:text-[#173c2d]">

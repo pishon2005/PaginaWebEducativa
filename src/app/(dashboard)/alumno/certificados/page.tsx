@@ -15,7 +15,7 @@ export default function AlumnoCertificadosPage() {
           <div className="absolute right-0 top-0 h-full w-1/3 bg-[linear-gradient(135deg,transparent_0_49%,#e8efe5_49%_50%,transparent_50%_100%)]" aria-hidden="true" />
           <div className="relative flex min-h-[270px] flex-col items-center justify-center border border-[#c9d6c9] bg-white/80 px-5 py-8 text-center">
             <Award className="size-8 text-[#a47d3c]" aria-hidden="true" />
-            <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#708176]">Aula Norte · Certificado de finalización</p>
+            <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#708176]">ProyectoClases · Certificado de finalización</p>
             <h2 className="mt-4 text-2xl font-semibold text-[#23422f]">Valeria Rojas</h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-[#718078]">Completó satisfactoriamente el curso</p>
             <p className="mt-1 text-lg font-semibold text-[#365b3f]">Excel para negocios</p>

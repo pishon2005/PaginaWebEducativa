@@ -41,7 +41,7 @@ const demoIdentities = {
 
 const demoNotifications = {
   superadmin: [
-    { title: "Nuevo usuario registrado", detail: "La institución Aula Norte sumó un administrador.", time: "Hace 8 min" },
+    { title: "Nuevo usuario registrado", detail: "La institución ProyectoClases sumó un administrador.", time: "Hace 8 min" },
     { title: "Reporte semanal disponible", detail: "Ya puedes revisar el resumen de actividad.", time: "Hace 1 h" },
   ],
   admin: [
@@ -143,7 +143,7 @@ export function Sidebar() {
           <GraduationCap className="size-5" aria-hidden="true" />
         </span>
         <span>
-          <span className="block text-[15px] font-bold tracking-tight text-[#173c2d]">Aula Norte</span>
+          <span className="block text-[15px] font-bold tracking-tight text-[#173c2d]">ProyectoClases</span>
           <span className="block text-xs text-[#738178]">Plataforma educativa</span>
         </span>
       </Link>
@@ -198,7 +198,7 @@ export function DashboardTopbar() {
     <>
       <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-[#dce4dd] bg-white/95 px-4 backdrop-blur md:px-8">
         <div>
-          <p className="text-[10px] font-medium text-[#7a887f] sm:text-xs">Aula Norte · {getRoleName(role)}</p>
+          <p className="text-[10px] font-medium text-[#7a887f] sm:text-xs">ProyectoClases · {getRoleName(role)}</p>
           <p className="mt-0.5 text-xs font-semibold text-[#24392d] sm:text-sm">{identity.name}</p>
         </div>
         <div className="flex items-center gap-4">

@@ -7,7 +7,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Aula Norte | Cursos en línea",
+  title: "ProyectoClases | Cursos en línea",
   description: "Plataforma de cursos en línea",
 };
 

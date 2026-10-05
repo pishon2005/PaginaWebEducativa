@@ -4,9 +4,9 @@ import { FormEvent, useState } from "react";
 import { CheckCircle2, GraduationCap } from "lucide-react";
 
 export function DemoSiteSettings() {
-  const [siteName, setSiteName] = useState("Aula Norte");
+  const [siteName, setSiteName] = useState("ProyectoClases");
   const [description, setDescription] = useState("Cursos prácticos para avanzar en tu carrera.");
-  const [email, setEmail] = useState("contacto@aulanorte.pe");
+  const [email, setEmail] = useState("contacto@proyectoclases.pe");
   const [primaryColor, setPrimaryColor] = useState("#315d3d");
   const [logo, setLogo] = useState("");
   const [notice, setNotice] = useState("");
