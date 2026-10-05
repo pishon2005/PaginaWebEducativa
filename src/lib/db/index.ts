@@ -1,13 +1,19 @@
+import "server-only";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "./schema";
 
-const connectionString = process.env.DATABASE_URL;
+let _db: ReturnType<typeof drizzle<typeof schema>> | null = null;
 
-if (!connectionString) {
-  throw new Error("DATABASE_URL no está definida en las variables de entorno");
+export function getDb() {
+  if (_db) return _db;
+
+  const connectionString = process.env.DATABASE_URL;
+  if (!connectionString) {
+    throw new Error("DATABASE_URL no está definida en las variables de entorno");
+  }
+
+  const client = postgres(connectionString, { prepare: false });
+  _db = drizzle(client, { schema });
+  return _db;
 }
-
-// Cliente de PostgreSQL con pooling
-const client = postgres(connectionString, { prepare: false });
-export const db = drizzle(client, { schema });
