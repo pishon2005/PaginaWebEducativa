@@ -15,7 +15,7 @@ export function BenefitsBar() {
   return (
     <div
       aria-label="Ventajas de aprender en EDUKATECH"
-      className="border-t border-white/10 bg-neutral-950/80"
+      className="relative z-20 border-t border-white/10 bg-neutral-950/80 lg:absolute lg:inset-x-0 lg:bottom-0"
     >
       <div className="mx-auto grid max-w-[1440px] grid-cols-1 px-5 sm:px-8 min-[480px]:grid-cols-2 lg:grid-cols-5 lg:px-14">
         {features.map(({ label, icon }, index) => (

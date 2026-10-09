@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Hero } from "@/components/public/hero";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -127,124 +128,7 @@ const benefits: {
 export default function HomePage() {
   return (
     <div className="bg-white text-neutral-900">
-      <section
-        id="inicio"
-        className="relative isolate flex min-h-[690px] flex-col overflow-hidden bg-neutral-950 text-white sm:min-h-[720px] lg:min-h-[610px]"
-      >
-        <Image
-          src="/img/Fondo1.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="absolute inset-0 z-0 object-cover object-center"
-        />
-        <div
-          className="absolute inset-0 z-[1] bg-[linear-gradient(90deg,rgba(10,10,10,0.58)_0%,rgba(10,10,10,0.18)_48%,rgba(10,10,10,0)_100%),linear-gradient(0deg,rgba(10,10,10,0.04)_0%,transparent_22%)]"
-          aria-hidden="true"
-        />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-24 bg-gradient-to-t from-neutral-950/65 to-transparent lg:h-28" />
-
-        <div className="relative z-20 mx-auto grid w-full max-w-[1440px] flex-1 grid-rows-[auto_18rem] items-center gap-2 px-5 pt-10 sm:grid-rows-[auto_23rem] sm:px-8 sm:pt-12 lg:grid-rows-1 lg:grid-cols-[1.08fr_0.92fr] lg:gap-0 lg:px-14 lg:pt-8 lg:pb-28">
-          <div className="relative z-20 max-w-[700px]">
-            <p className="inline-flex select-none items-center gap-3 rounded-md bg-neutral-950/75 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-neutral-100 shadow-lg shadow-black/20 backdrop-blur-sm sm:text-xs">
-              Aprende <span className="text-orange-400">·</span> Crea{" "}
-              <span className="text-orange-400">·</span> Innova
-            </p>
-            <h1 className="mt-4 max-w-[700px] text-[clamp(2.25rem,11vw,3rem)] leading-[0.92] font-black tracking-tight text-white drop-shadow-lg sm:text-[clamp(2.75rem,4.4vw,4.5rem)]">
-              De cero a
-              <br />
-              <span className="bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
-                proyectos reales
-              </span>
-            </h1>
-            <p className="mt-5 max-w-[470px] text-base leading-6 text-neutral-100 drop-shadow sm:text-lg">
-              Cursos prácticos de programación, electrónica,
-              microcontroladores e investigación.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/cursos"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-orange-500 px-6 text-sm font-bold text-white shadow-lg shadow-orange-950/30 transition hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Ver cursos
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href="#proyectos"
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-orange-400 px-6 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              >
-                Conoce más
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative z-10 -mx-5 h-full min-h-0 select-none sm:-mx-8 lg:pointer-events-none lg:absolute lg:inset-y-0 lg:right-0 lg:left-auto lg:mx-0 lg:w-[66%] lg:translate-x-[-24%]">
-            <Image
-              src="/img/4ff137cd-cd0b-49f5-aa0f-56f69175eaba.png"
-              alt=""
-              fill
-              draggable={false}
-              priority
-              sizes="(max-width: 1023px) 100vw, 66vw"
-              className="pointer-events-none select-none object-contain object-bottom lg:object-right-bottom"
-            />
-            <div
-              className="absolute inset-0 bg-gradient-to-t from-neutral-950/45 via-transparent to-neutral-950/5 lg:bg-gradient-to-r lg:from-neutral-950/25 lg:via-transparent lg:to-transparent"
-              aria-hidden="true"
-            />
-            <aside
-              aria-label="Tecnologías que aprenderás"
-              className="absolute right-4 bottom-3 z-20 w-[min(10.5rem,42vw)] select-none rounded-xl border border-white/30 bg-neutral-950/65 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl sm:right-7 sm:bottom-5 sm:w-44 sm:p-4 lg:top-[42%] lg:right-[5%] lg:bottom-auto lg:-translate-y-1/2"
-            >
-              <ul className="pointer-events-none grid gap-2 sm:gap-2.5">
-                {technologies.map(({ label, icon }) => (
-                  <li
-                    key={label}
-                    className="flex min-w-0 items-center gap-2.5 text-xs font-medium text-white sm:gap-3 sm:text-sm"
-                  >
-                    <Image
-                      src={icon}
-                      alt=""
-                      width={48}
-                      height={48}
-                      draggable={false}
-                      className="size-9 shrink-0 select-none object-contain sm:size-10"
-                    />
-                    <span className="truncate">{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </aside>
-          </div>
-        </div>
-
-        <div
-          aria-label="Ventajas de aprender en EDUKATECH"
-          className="relative z-30 border-t border-white/15 bg-neutral-950/65 backdrop-blur-xl lg:absolute lg:inset-x-0 lg:bottom-0"
-        >
-          <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-x-5 px-5 py-3 sm:px-8 sm:py-4 min-[380px]:grid-cols-2 lg:grid-cols-5 lg:px-14">
-            {features.map(({ label, icon }) => (
-              <div
-                key={label}
-                className="flex min-h-14 items-center gap-3 border-b border-white/10 py-2 last:border-0 min-[380px]:[&:nth-child(odd)]:border-r min-[380px]:[&:nth-child(odd)]:pr-3 min-[380px]:[&:nth-child(even)]:pl-3 min-[380px]:[&:nth-last-child(2)]:border-b-0 min-[380px]:last:col-span-2 min-[380px]:last:border-r-0 min-[380px]:last:border-b-0 lg:border-r lg:border-b-0 lg:first:pl-0 lg:last:col-span-1 lg:last:border-0"
-              >
-                <Image
-                  src={icon}
-                  alt=""
-                  width={72}
-                  height={72}
-                  draggable={false}
-                  className="size-16 shrink-0 select-none object-contain"
-                />
-                <span className="text-xs leading-4 font-medium text-white sm:text-sm">
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       <section
         id="catalogo"
