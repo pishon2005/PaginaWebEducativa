@@ -132,7 +132,7 @@ export default function HomePage() {
         className="relative isolate flex min-h-[690px] flex-col overflow-hidden bg-neutral-950 text-white sm:min-h-[720px] lg:min-h-[610px]"
       >
         <Image
-          src="/img/fondo1.png"
+          src="/img/Fondo1.png"
           alt=""
           fill
           priority
