@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { BenefitsBar } from "./benefits-bar";
 
 const technologies = [
-  { label: "Python", icon: "/img/python.png" },
-  { label: "MicroPython", icon: "/img/libro.png" },
-  { label: "ESP32", icon: "/img/procesador.png" },
-  { label: "Electrónica", icon: "/img/rayo_minimalista.png" },
-  { label: "IoT", icon: "/img/redwifi.png" },
+  { label: "Python", icon: "/img/python.webp" },
+  { label: "MicroPython", icon: "/img/libro.webp" },
+  { label: "ESP32", icon: "/img/procesador.webp" },
+  { label: "Electrónica", icon: "/img/rayo_minimalista.webp" },
+  { label: "IoT", icon: "/img/redwifi.webp" },
 ];
 
 export function Hero() {
@@ -18,7 +18,7 @@ export function Hero() {
       className="relative isolate flex min-h-[690px] flex-col overflow-hidden bg-neutral-950 text-white sm:min-h-[720px] lg:min-h-[680px]"
     >
       <Image
-        src="/img/Fondo1.png"
+        src="/img/Fondo1.webp"
         alt=""
         fill
         priority
@@ -72,7 +72,7 @@ export function Hero() {
 
         <div className="relative z-10 -mx-5 h-full min-h-0 select-none sm:-mx-8 lg:pointer-events-none lg:absolute lg:inset-y-0 lg:right-0 lg:left-auto lg:mx-0 lg:w-[66%] lg:translate-x-[-20%]">
           <Image
-            src="/img/chico_fondo.png"
+            src="/img/chico_fondo.webp"
             alt=""
             fill
             draggable={false}

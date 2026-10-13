@@ -29,15 +29,15 @@ const projects: {
 }[] = [
     {
       name: "Seguidor de línea",
-      image: "/img/proyecto-seguidor.png",
+      image: "/img/proyecto-seguidor.webp",
     },
     {
       name: "Soccerbot",
-      image: "/img/proyecto-soccerbot.png",
+      image: "/img/proyecto-soccerbot.webp",
     },
     {
       name: "Mini Smart Factory",
-      image: "/img/proyecto-smart-factory.png",
+      image: "/img/proyecto-smart-factory.webp",
     },
   ];
 
@@ -164,7 +164,7 @@ export default function HomePage() {
   <div
     aria-hidden="true"
     className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat"
-    style={{ backgroundImage: "url('/img/fondo_proyectos.png')" }}
+    style={{ backgroundImage: "url('/img/fondo_proyectos.webp')" }}
   />
   <div
     aria-hidden="true"

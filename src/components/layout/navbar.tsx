@@ -62,7 +62,7 @@ export function Navbar() {
         >
           <span className="grid size-16 place-items-center">
             <Image
-              src="/img/logo.png"
+              src="/img/logo.webp"
               alt=""
               width={80}
               height={80}
@@ -149,7 +149,7 @@ export function Navbar() {
                 <SheetTitle className="flex items-center gap-2.5 text-left">
                   <span className="grid size-11 place-items-center">
                     <Image
-                      src="/img/logo.png"
+                      src="/img/logo.webp"
                       alt=""
                       width={52}
                       height={52}

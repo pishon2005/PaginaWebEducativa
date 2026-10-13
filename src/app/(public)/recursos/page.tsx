@@ -6,25 +6,25 @@ const resourceGroups = [
   {
     title: "Guías de instalación",
     description: "Python, Arduino IDE, drivers y entornos de desarrollo listos para usar.",
-    icon: "/img/libro.png",
+    icon: "/img/libro.webp",
     items: ["Python 3.12 + VS Code", "Arduino IDE y drivers CH340", "Node.js y npm", "Git y GitHub Desktop"],
   },
   {
     title: "Códigos de ejemplo",
     description: "Proyectos base comentados para que experimentes sin empezar desde cero.",
-    icon: "/img/tuerca.png",
+    icon: "/img/tuerca.webp",
     items: ["Hola mundo en Python", "Blink con ESP32", "API REST con Express", "Componente React reutilizable"],
   },
   {
     title: "Plantillas de proyectos",
     description: "Estructuras listas para robótica, IoT y aplicaciones web.",
-    icon: "/img/procesador.png",
+    icon: "/img/procesador.webp",
     items: ["Seguidor de línea base", "Dashboard IoT con MQTT", "Landing page responsive", "Análisis de datos con Pandas"],
   },
   {
     title: "Comunidad y soporte",
     description: "Espacios para resolver dudas y compartir avances con otros estudiantes.",
-    icon: "/img/personas.png",
+    icon: "/img/personas.webp",
     items: ["Foro de estudiantes", "Sesiones de preguntas en vivo", "Canal de Discord", "Mentorías 1 a 1"],
   },
 ];

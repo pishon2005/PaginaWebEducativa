@@ -9,7 +9,7 @@ const courses = [
     classes: "9 clases",
     modality: "Virtual",
     label: "PROGRAMACIÓN",
-    icon: "/img/python.png",
+    icon: "/img/python.webp",
     artwork: "from-sky-950 via-blue-800 to-orange-500",
   },
   {
@@ -18,7 +18,7 @@ const courses = [
     classes: "9 clases",
     modality: "Virtual",
     label: "DESARROLLO WEB",
-    icon: "/img/procesador.png",
+    icon: "/img/procesador.webp",
     artwork: "from-neutral-950 via-indigo-950 to-orange-600",
   },
   {
@@ -27,7 +27,7 @@ const courses = [
     classes: "9 clases",
     modality: "Virtual",
     label: "CIENCIA DE DATOS",
-    icon: "/img/icono_crecimiento.png",
+    icon: "/img/icono_crecimiento.webp",
     artwork: "from-slate-950 via-teal-900 to-yellow-500",
   },
   {
@@ -36,7 +36,7 @@ const courses = [
     classes: "9 clases",
     modality: "Virtual",
     label: "DATOS",
-    icon: "/img/procesador.png",
+    icon: "/img/procesador.webp",
     artwork: "from-neutral-950 via-neutral-800 to-orange-500",
   },
 ];

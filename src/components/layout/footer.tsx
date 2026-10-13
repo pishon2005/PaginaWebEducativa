@@ -58,7 +58,7 @@ export function Footer() {
           >
             <span className="grid size-16 place-items-center">
               <Image
-                src="/img/logo.png"
+                src="/img/logo.webp"
                 alt=""
                 width={72}
                 height={72}

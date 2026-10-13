@@ -1,13 +1,13 @@
 import Image from "next/image";
 
 const features = [
-  { label: "Clases 100% prácticas", icon: "/img/sombrerodegraduación.png" },
-  { label: "Proyectos reales", icon: "/img/tuerca.png" },
-  { label: "Acompañamiento del docente", icon: "/img/personas.png" },
-  { label: "Modalidad virtual y presencial", icon: "/img/icono_laptop.png" },
+  { label: "Clases 100% prácticas", icon: "/img/sombrerodegraduación.webp" },
+  { label: "Proyectos reales", icon: "/img/tuerca.webp" },
+  { label: "Acompañamiento del docente", icon: "/img/personas.webp" },
+  { label: "Modalidad virtual y presencial", icon: "/img/icono_laptop.webp" },
   {
     label: "Enfocado en tu futuro profesional",
-    icon: "/img/icono_crecimiento.png",
+    icon: "/img/icono_crecimiento.webp",
   },
 ];
 

@@ -9,7 +9,7 @@ const communityCards = [
     title: "Materiales y recursos",
     description:
       "Guías, códigos y materiales de apoyo para que sigas construyendo dentro y fuera de clase.",
-    icon: "/img/libro.png",
+    icon: "/img/libro.webp",
   },
   {
     id: "nosotros",
@@ -17,7 +17,7 @@ const communityCards = [
     title: "Comunidad EDUKATECH",
     description:
       "Comparte ideas, resuelve dudas y encuentra personas que también quieren crear tecnología.",
-    icon: "/img/personas.png",
+    icon: "/img/personas.webp",
   },
   {
     id: "investigacion",
@@ -25,7 +25,7 @@ const communityCards = [
     title: "Asesoría de tesis",
     description:
       "Acompañamiento para transformar una pregunta de investigación en una solución tecnológica.",
-    icon: "/img/sombrerodegraduación.png",
+    icon: "/img/sombrerodegraduación.webp",
   },
 ];
 

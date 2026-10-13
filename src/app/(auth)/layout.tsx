@@ -14,7 +14,7 @@ export default function AuthLayout({
         <div className="absolute -right-24 top-1/4 size-80 rounded-full border border-orange-500/20" aria-hidden="true" />
         <div className="absolute -right-10 top-1/3 size-44 rounded-full border border-orange-400/15" aria-hidden="true" />
         <Link href="/" className="relative z-10 flex w-fit items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 backdrop-blur-sm">
-          <Image src="/img/logo.png" alt="" width={36} height={36} className="size-9 object-contain" />
+          <Image src="/img/logo.webp" alt="" width={36} height={36} className="size-9 object-contain" />
           <span className="flex flex-col leading-none">
             <span className="text-sm font-black tracking-tight text-white">EDUKA<span className="text-orange-500">TECH</span></span>
             <span className="mt-0.5 text-[8px] font-bold tracking-[0.16em] text-neutral-400">TECHNOLOGY DIVISION</span>
@@ -29,7 +29,7 @@ export default function AuthLayout({
       </section>
       <section className="flex min-h-screen flex-col items-center justify-center px-5 py-10 sm:px-10">
         <Link href="/" className="mb-8 flex items-center gap-2.5 lg:hidden">
-          <Image src="/img/logo.png" alt="" width={40} height={40} className="size-10 object-contain" />
+          <Image src="/img/logo.webp" alt="" width={40} height={40} className="size-10 object-contain" />
           <span className="flex flex-col leading-none">
             <span className="text-lg font-black tracking-tight text-neutral-950">EDUKA<span className="text-orange-600">TECH</span></span>
             <span className="mt-0.5 text-[8px] font-bold tracking-[0.16em] text-neutral-500">TECHNOLOGY DIVISION</span>

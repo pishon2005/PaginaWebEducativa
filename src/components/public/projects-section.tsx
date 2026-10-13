@@ -6,7 +6,7 @@ const projects = [
   {
     name: "Seguidor de línea",
     detail: "Robótica · Sensores · Arduino",
-    icon: "/img/tuerca.png",
+    icon: "/img/tuerca.webp",
     art: "from-neutral-900 via-neutral-800 to-orange-950",
     dot: "bg-orange-400",
     index: 1,
@@ -14,7 +14,7 @@ const projects = [
   {
     name: "Soccerbot",
     detail: "Electrónica · Control · Robótica",
-    icon: "/img/procesador.png",
+    icon: "/img/procesador.webp",
     art: "from-slate-950 via-blue-950 to-neutral-800",
     dot: "bg-sky-300",
     index: 2,
@@ -22,7 +22,7 @@ const projects = [
   {
     name: "Mini Smart Factory",
     detail: "Automatización · IoT · Industria",
-    icon: "/img/icono_crecimiento.png",
+    icon: "/img/icono_crecimiento.webp",
     art: "from-neutral-950 via-stone-800 to-yellow-950",
     dot: "bg-yellow-300",
     index: 3,

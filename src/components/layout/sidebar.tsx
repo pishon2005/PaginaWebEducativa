@@ -141,7 +141,7 @@ export function Sidebar() {
   return (
     <aside className="sticky top-0 hidden h-screen w-[232px] shrink-0 flex-col overflow-y-auto border-r border-[#e7e5e4] bg-white px-4 py-5 lg:flex">
       <Link href="/" className="flex items-center gap-3 px-2">
-        <Image src="/img/logo.png" alt="" width={40} height={40} className="size-10 object-contain" />
+        <Image src="/img/logo.webp" alt="" width={40} height={40} className="size-10 object-contain" />
         <span>
           <span className="block text-[15px] font-black tracking-tight text-neutral-950">EDUKA<span className="text-orange-600">TECH</span></span>
           <span className="block text-[9px] font-bold tracking-[0.14em] text-neutral-500">TECHNOLOGY DIVISION</span>
