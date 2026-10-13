@@ -26,17 +26,16 @@ const navigationLinks = [
   { href: "/", label: "Inicio" },
   { href: "/cursos", label: "Cursos" },
   { href: "/#proyectos", label: "Proyectos" },
-  { href: "/#investigacion", label: "Investigación" },
-  { href: "/#recursos", label: "Recursos" },
-  { href: "/#nosotros", label: "Nosotros" },
+  { href: "/recursos", label: "Recursos" },
+  { href: "/nosotros", label: "Nosotros" },
   { href: "/#contacto", label: "Contacto" },
 ];
 
 const mobileQuickLinks = [
   { href: "/cursos", label: "Explorar cursos", icon: GraduationCap },
   { href: "/#proyectos", label: "Proyectos", icon: Cpu },
-  { href: "/#investigacion", label: "Investigación", icon: FlaskConical },
-  { href: "/#nosotros", label: "Comunidad", icon: Users },
+  { href: "/recursos", label: "Recursos", icon: FlaskConical },
+  { href: "/nosotros", label: "Nosotros", icon: Users },
 ];
 
 export function Navbar() {
@@ -115,6 +114,12 @@ export function Navbar() {
             className="grid size-10 place-items-center rounded-lg text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-orange-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
           >
             <Search className="size-5" aria-hidden="true" />
+          </Link>
+          <Link
+            href="/login"
+            className="hidden min-h-10 items-center justify-center rounded-lg border border-neutral-300 px-4 text-sm font-semibold text-neutral-800 transition-colors hover:border-orange-400 hover:text-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 sm:inline-flex"
+          >
+            Iniciar sesión
           </Link>
           <Link
             href="/cursos"
@@ -203,7 +208,17 @@ export function Navbar() {
                   ))}
                 </div>
               </div>
-              <div className="mt-auto p-4">
+              <div className="mt-auto grid gap-2 p-4">
+                <SheetClose
+                  render={
+                    <Link
+                      href="/login"
+                      className="flex min-h-11 w-full items-center justify-center rounded-lg border border-neutral-300 px-4 text-sm font-semibold text-neutral-800 transition-colors hover:border-orange-400 hover:text-orange-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+                    >
+                      Iniciar sesión
+                    </Link>
+                  }
+                />
                 <SheetClose
                   render={
                     <Link

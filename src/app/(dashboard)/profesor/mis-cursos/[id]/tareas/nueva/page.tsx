@@ -13,8 +13,8 @@ export default async function ProfesorNuevaTareaPage({
 
   return (
     <div className="space-y-5">
-      <TeacherCourseHeader courseId={id} section="tareas" description={`Prepara una actividad para el grupo de ${course.title}.`} action={<Link href={`/profesor/mis-cursos/${id}/tareas`} className="text-xs font-semibold text-[#56715b] hover:text-[#173c2d]">Volver a tareas</Link>} />
-      <h2 className="text-lg font-semibold text-[#243d2e]">Nueva tarea</h2>
+      <TeacherCourseHeader courseId={id} section="tareas" description={`Prepara una actividad para el grupo de ${course.title}.`} action={<Link href={`/profesor/mis-cursos/${id}/tareas`} className="text-xs font-semibold text-[#ea580c] hover:text-[#f97316]">Volver a tareas</Link>} />
+      <h2 className="text-lg font-semibold text-[#171717]">Nueva tarea</h2>
       <DemoTaskBuilder courseId={id} />
     </div>
   );

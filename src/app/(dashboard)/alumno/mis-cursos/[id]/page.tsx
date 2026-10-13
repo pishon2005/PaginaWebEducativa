@@ -25,7 +25,7 @@ export default async function AlumnoCursoPage({
       />
 
       <section className="mb-6 grid gap-4 sm:grid-cols-[1.35fr_1fr]">
-        <Card className="justify-center bg-[#173c2d] text-white ring-0">
+        <Card className="justify-center bg-[#f97316] text-white ring-0">
           <CardContent className="py-5 sm:py-6">
             <div className="flex items-end justify-between gap-4">
               <div>
@@ -38,25 +38,25 @@ export default async function AlumnoCursoPage({
             </div>
             <Progress
               value={course.progress}
-              className="mt-4 bg-white/20 [&>div]:bg-[#b9d4ad]"
+              className="mt-4 bg-white/20 [&>div]:bg-[#fdba74]"
             />
           </CardContent>
         </Card>
         <Card className="justify-center">
           <CardContent className="grid grid-cols-2 gap-4 py-5 sm:py-6">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#849087]">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#78716c]">
                 Duración
               </p>
-              <p className="mt-1 text-sm font-semibold text-[#304637]">
+              <p className="mt-1 text-sm font-semibold text-[#171717]">
                 {course.duration}
               </p>
             </div>
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#849087]">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-[#78716c]">
                 Comunidad
               </p>
-              <p className="mt-1 text-sm font-semibold text-[#304637]">
+              <p className="mt-1 text-sm font-semibold text-[#171717]">
                 {course.students} estudiantes
               </p>
             </div>
@@ -79,27 +79,27 @@ export default async function AlumnoCursoPage({
             </CardHeader>
             <CardContent className="space-y-2">
               {courseModules.map((module, weekIndex) => (
-                <details key={module.title} className="rounded-xl border border-[#e5ebe5] bg-white" open={weekIndex === 1}>
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-[#344a39]"><span>Módulo {weekIndex + 1} · {module.title}</span><span className="text-[10px] font-medium text-[#7e8b81]">{weekIndex === 0 ? module.lessons.length : weekIndex === 1 ? `${Math.max(0, module.lessons.length - 1)} de ${module.lessons.length}` : `0 de ${module.lessons.length}`} clases</span></summary>
-                  <ul className="divide-y divide-[#edf1ed] border-t border-[#e8ede8] px-4">
+                <details key={module.title} className="rounded-xl border border-[#e7e5e4] bg-white" open={weekIndex === 1}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-[#171717]"><span>Módulo {weekIndex + 1} · {module.title}</span><span className="text-[10px] font-medium text-[#78716c]">{weekIndex === 0 ? module.lessons.length : weekIndex === 1 ? `${Math.max(0, module.lessons.length - 1)} de ${module.lessons.length}` : `0 de ${module.lessons.length}`} clases</span></summary>
+                  <ul className="divide-y divide-[#fafaf9] border-t border-[#e7e5e4] px-4">
                     {module.lessons.map((lesson, classIndex) => {
                       const completed = weekIndex === 0 || (weekIndex === 1 && classIndex < 2);
                       const lessonId = courseModules.slice(0, weekIndex).reduce((count, previousModule) => count + previousModule.lessons.length, classIndex + 1);
                       return (
                         <li key={lesson.title} className="flex flex-wrap items-center gap-3 py-3 text-xs">
-                          <span className="flex min-w-[180px] flex-1 items-center gap-2.5 text-[#5c6d61]">
-                            {completed ? <CheckCircle2 className="size-4 shrink-0 text-[#64846a]" aria-hidden="true" /> : <CirclePlay className="size-4 shrink-0 text-[#829087]" aria-hidden="true" />}
+                          <span className="flex min-w-[180px] flex-1 items-center gap-2.5 text-[#57534e]">
+                            {completed ? <CheckCircle2 className="size-4 shrink-0 text-[#ea580c]" aria-hidden="true" /> : <CirclePlay className="size-4 shrink-0 text-[#78716c]" aria-hidden="true" />}
                             <span>
                               {lesson.title}
-                              <span className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-[#89958d]">
+                              <span className="mt-1 flex flex-wrap items-center gap-2 text-[10px] text-[#78716c]">
                                 <span>{lesson.duration} min</span><span>·</span>
                                 <span>{lesson.hasVideo ? "Video guía" : "Lección"}</span><span>·</span>
                                 <span>{lesson.material}</span>
                               </span>
                             </span>
                           </span>
-                          <span className="text-[10px] text-[#87938a]">{completed ? "Completada" : "Pendiente"}</span>
-                          <Link href={`/alumno/mis-cursos/${id}/clases/${lessonId}`} className="text-[10px] font-semibold text-[#527456] hover:underline">{completed ? "Repasar clase" : "Abrir clase"}</Link>
+                          <span className="text-[10px] text-[#78716c]">{completed ? "Completada" : "Pendiente"}</span>
+                          <Link href={`/alumno/mis-cursos/${id}/clases/${lessonId}`} className="text-[10px] font-semibold text-[#ea580c] hover:underline">{completed ? "Repasar clase" : "Abrir clase"}</Link>
                         </li>
                       );
                     })}
@@ -118,7 +118,7 @@ export default async function AlumnoCursoPage({
               <div className="space-y-3 text-sm text-muted-foreground">
                 <p>Aprende con clases grabadas, ejercicios guiados y actividades para practicar cada concepto.</p>
                 <p>Docente: {course.instructor} · {course.duration} · Certificado disponible al completar el curso.</p>
-                <Link href="/profesores/ana-campos" className="inline-block text-xs font-semibold text-[#527456] hover:underline">Conoce a tu docente</Link>
+                <Link href="/profesores/ana-campos" className="inline-block text-xs font-semibold text-[#ea580c] hover:underline">Conoce a tu docente</Link>
               </div>
             </CardContent>
           </Card>

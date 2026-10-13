@@ -20,16 +20,18 @@ const footerGroups = [
   {
     title: "Empresa",
     links: [
-      { href: "/#nosotros", label: "Nosotros" },
+      { href: "/nosotros", label: "Nosotros" },
+      { href: "/recursos", label: "Recursos" },
       { href: "/profesores/ana-campos", label: "Nuestro equipo" },
       { href: "/#contacto", label: "Contacto" },
     ],
   },
   {
-    title: "Legal",
+    title: "Cuenta",
     links: [
-      { href: "/#privacidad", label: "Aviso de privacidad" },
-      { href: "/#terminos", label: "Términos y condiciones" },
+      { href: "/login", label: "Iniciar sesión" },
+      { href: "/registro", label: "Crear cuenta" },
+      { href: "/certificados/EDK-2026-0428", label: "Verificar certificado" },
     ],
   },
 ];

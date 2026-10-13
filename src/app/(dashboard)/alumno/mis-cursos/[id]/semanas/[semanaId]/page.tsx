@@ -25,14 +25,14 @@ export default async function AlumnoSemanaPage({
         section="contenido"
         description={`${course.title} · avanza con las clases y materiales del módulo.`}
       />
-      <div className="rounded-xl border border-[#e1e8e1] bg-white px-4 py-3">
-        <p className="text-sm font-semibold text-[#304637]">Módulo {moduleIndex + 1} · {currentModule.title}</p>
-        <p className="mt-1 text-xs text-[#849087]">{currentModule.lessons.length} clases · videos guía y materiales de aprendizaje</p>
+      <div className="rounded-xl border border-[#e7e5e4] bg-white px-4 py-3">
+        <p className="text-sm font-semibold text-[#171717]">Módulo {moduleIndex + 1} · {currentModule.title}</p>
+        <p className="mt-1 text-xs text-[#78716c]">{currentModule.lessons.length} clases · videos guía y materiales de aprendizaje</p>
       </div>
 
       <div className="space-y-3">
         {currentModule.lessons.map((lesson, index) => (
-          <Card key={lesson.title} className="rounded-2xl border-[#e1e8e1]">
+          <Card key={lesson.title} className="rounded-2xl border-[#e7e5e4]">
             <CardHeader className="flex flex-row items-center gap-3">
               {(moduleIndex === 0 || (moduleIndex === 1 && index < 2)) ? (
                 <CheckCircle2 className="size-5 shrink-0 text-green-600" aria-hidden="true" />
@@ -45,7 +45,7 @@ export default async function AlumnoSemanaPage({
               <span className="text-sm text-muted-foreground">
                 {lesson.duration} min
               </span>
-              <Link href={`/alumno/mis-cursos/${id}/clases/${firstLessonIndex + index + 1}`} className="border border-[#cdd9cf] px-3 py-2 text-xs font-semibold text-[#4f6e54] hover:bg-[#f4f8f4]">
+              <Link href={`/alumno/mis-cursos/${id}/clases/${firstLessonIndex + index + 1}`} className="border border-[#e7e5e4] px-3 py-2 text-xs font-semibold text-[#ea580c] hover:bg-[#fff7ed]">
                 Abrir clase
               </Link>
             </CardHeader>

@@ -8,71 +8,20 @@ import {
   Users,
 } from "lucide-react";
 
-const technologies = [
-  { label: "Python", icon: "/img/python.png" },
-  { label: "MicroPython", icon: "/img/libro.png" },
-  { label: "ESP32", icon: "/img/procesador.png" },
-  { label: "Electrónica", icon: "/img/rayo_minimalista.png" },
-  { label: "IoT", icon: "/img/redwifi.png" },
-];
+import { demoCoursesList } from "@/lib/demo-data";
 
-const features = [
-  { label: "Clases 100% prácticas", icon: "/img/sombrerodegraduación.png" },
-  { label: "Proyectos reales", icon: "/img/tuerca.png" },
-  { label: "Acompañamiento del docente", icon: "/img/personas.png" },
-  { label: "Modalidad virtual y presencial", icon: "/img/icono_laptop.png" },
-  {
-    label: "Enfocado en tu futuro profesional",
-    icon: "/img/icono_crecimiento.png",
-  },
-];
-
-const courses: {
-  slug: string;
-  title: string;
-  classes: string;
-  modality: string;
-  label: string;
-  icon: string;
-  artwork: string;
-}[] = [
-    {
-      slug: "curso-1",
-      title: "Fundamentos de Python",
-      classes: "9 clases",
-      modality: "Virtual",
-      label: "PROGRAMACIÓN",
-      icon: "/img/python.png",
-      artwork: "from-sky-950 via-blue-800 to-orange-500",
-    },
-    {
-      slug: "curso-2",
-      title: "Desarrollo web con React",
-      classes: "9 clases",
-      modality: "Virtual",
-      label: "DESARROLLO WEB",
-      icon: "/img/procesador.png",
-      artwork: "from-neutral-950 via-indigo-950 to-orange-600",
-    },
-    {
-      slug: "curso-4",
-      title: "Introducción a ciencia de datos",
-      classes: "9 clases",
-      modality: "Virtual",
-      label: "CIENCIA DE DATOS",
-      icon: "/img/icono_crecimiento.png",
-      artwork: "from-slate-950 via-teal-900 to-yellow-500",
-    },
-    {
-      slug: "curso-6",
-      title: "SQL y bases de datos",
-      classes: "9 clases",
-      modality: "Virtual",
-      label: "DATOS",
-      icon: "/img/procesador.png",
-      artwork: "from-neutral-950 via-neutral-800 to-orange-500",
-    },
-  ];
+const courses = demoCoursesList
+  .filter((course) => course.published)
+  .slice(0, 4)
+  .map((course) => ({
+    slug: course.slug,
+    title: course.title,
+    classes: course.classes,
+    modality: course.modality,
+    label: course.category,
+    icon: course.icon,
+    artwork: course.artwork,
+  }));
 
 const projects: {
   name: string;
@@ -92,38 +41,6 @@ const projects: {
     },
   ];
 
-const benefits: {
-  id: string;
-  eyebrow: string;
-  title: string;
-  description: string;
-  icon: string;
-}[] = [
-    {
-      id: "recursos",
-      eyebrow: "Siempre a tu alcance",
-      title: "Materiales y recursos",
-      description:
-        "Guías, códigos y materiales de apoyo para que sigas construyendo dentro y fuera de clase.",
-      icon: "/img/libro.png",
-    },
-    {
-      id: "nosotros",
-      eyebrow: "Aprendemos en comunidad",
-      title: "Comunidad EDUKATECH",
-      description:
-        "Comparte ideas, resuelve dudas y encuentra personas que también quieren crear tecnología.",
-      icon: "/img/personas.png",
-    },
-    {
-      id: "investigacion",
-      eyebrow: "Lleva tus ideas más lejos",
-      title: "Asesoría de tesis",
-      description:
-        "Acompañamiento para transformar una pregunta de investigación en una solución tecnológica.",
-      icon: "/img/sombrerodegraduación.png",
-    },
-  ];
 
 export default function HomePage() {
   return (
@@ -308,52 +225,11 @@ export default function HomePage() {
 </section>
 
       <section
-        id="beneficios"
+        id="contacto"
         className="scroll-mt-24 bg-neutral-50 px-5 py-16 sm:px-6 md:py-20 lg:px-8"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-700">
-              Crece con EDUKATECH
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-neutral-950 sm:text-4xl">
-              Más que cursos: una comunidad que impulsa tus ideas
-            </h2>
-          </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {benefits.map(
-              ({ id, eyebrow, title, description, icon }) => (
-                <article
-                  id={id}
-                  key={id}
-                  className="scroll-mt-28 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-200 hover:shadow-md"
-                >
-                  <span className="grid size-14 place-items-center rounded-full bg-neutral-950 shadow-sm shadow-orange-500/20">
-                    <Image
-                      src={icon}
-                      alt=""
-                      width={44}
-                      height={44}
-                      className="size-11 object-contain"
-                    />
-                  </span>
-                  <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.14em] text-orange-700">
-                    {eyebrow}
-                  </p>
-                  <h3 className="mt-1 text-lg font-bold text-neutral-950">
-                    {title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-neutral-600">
-                    {description}
-                  </p>
-                </article>
-              ),
-            )}
-          </div>
-          <div
-            id="contacto"
-            className="scroll-mt-24 mt-8 flex flex-col gap-4 rounded-xl bg-neutral-950 p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8"
-          >
+          <div className="flex flex-col gap-4 rounded-xl bg-neutral-950 p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-orange-400">
                 Tu próxima idea empieza aquí

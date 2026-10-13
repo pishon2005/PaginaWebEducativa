@@ -13,7 +13,7 @@ export default async function AlumnoQuizAttemptPage({
   return (
     <div className="space-y-5">
       <StudentCourseHeader courseId={id} section="evaluaciones" description={`Evaluación de ${course.title} · responde con calma y revisa tus respuestas.`} />
-      <h2 className="text-lg font-semibold text-[#243d2e]">{quizId === "1" ? "Funciones y colecciones" : `Evaluación ${quizId}`}</h2>
+      <h2 className="text-lg font-semibold text-[#171717]">{quizId === "1" ? "Funciones y colecciones" : `Evaluación ${quizId}`}</h2>
       <DemoQuiz courseId={id} />
     </div>
   );

@@ -73,53 +73,53 @@ export function DemoForum({ role, courseName }: DemoForumProps) {
 
   return (
     <div className="space-y-4">
-      <section className="rounded-2xl border border-[#dfe7e0] bg-white p-4 sm:p-5">
+      <section className="rounded-2xl border border-[#e7e5e4] bg-white p-4 sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#718176]">Comunidad de aprendizaje</p>
-            <h2 className="mt-1 text-base font-semibold text-[#263d2e]">Foro de cursos</h2>
-            <p className="mt-1 max-w-xl text-xs leading-5 text-[#7d8981]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-[#44403c]">Comunidad de aprendizaje</p>
+            <h2 className="mt-1 text-base font-semibold text-[#171717]">Foro de cursos</h2>
+            <p className="mt-1 max-w-xl text-xs leading-5 text-[#78716c]">
               {role === "profesor" ? "Publica avisos, responde preguntas y modera las conversaciones." : "Pregunta, comparte recursos y conversa con docentes y compañeros."}
             </p>
           </div>
-          <button type="button" onClick={() => { setShowComposer((visible) => !visible); setNotice(""); }} className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#173c2d] px-4 text-xs font-semibold text-white hover:bg-[#24543e]"><Plus className="size-4" aria-hidden="true" />{role === "profesor" ? "Publicar tema" : "Nueva consulta"}</button>
+          <button type="button" onClick={() => { setShowComposer((visible) => !visible); setNotice(""); }} className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#f97316] px-4 text-xs font-semibold text-white hover:bg-[#ea580c]"><Plus className="size-4" aria-hidden="true" />{role === "profesor" ? "Publicar tema" : "Nueva consulta"}</button>
         </div>
-        <div className="mt-4 grid gap-3 border-t border-[#edf1ed] pt-4 sm:grid-cols-[minmax(180px,0.7fr)_1fr]">
-          <label className="text-[10px] font-semibold text-[#64756a]">
+        <div className="mt-4 grid gap-3 border-t border-[#fafaf9] pt-4 sm:grid-cols-[minmax(180px,0.7fr)_1fr]">
+          <label className="text-[10px] font-semibold text-[#44403c]">
             Ver conversaciones de
-            <select aria-label="Filtrar foro por curso" value={selectedCourse} onChange={(event) => setSelectedCourse(event.target.value)} disabled={Boolean(courseName)} className="mt-1.5 h-10 w-full rounded-lg border border-[#dfe7df] bg-white px-3 text-xs font-medium text-[#405747] disabled:bg-[#f7f9f6]">
+            <select aria-label="Filtrar foro por curso" value={selectedCourse} onChange={(event) => setSelectedCourse(event.target.value)} disabled={Boolean(courseName)} className="mt-1.5 h-10 w-full rounded-lg border border-[#e7e5e4] bg-white px-3 text-xs font-medium text-[#ea580c] disabled:bg-[#fff7ed]">
               {!courseName && <option>Todos los cursos</option>}
               {forumCourses.map((course) => <option key={course}>{course}</option>)}
             </select>
           </label>
           <label className="relative block self-end">
             <span className="sr-only">Buscar en los temas del foro</span>
-            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#859188]" aria-hidden="true" />
-            <input value={search} onChange={(event) => setSearch(event.target.value)} aria-label="Buscar temas" placeholder="Buscar temas o respuestas" className="h-10 w-full rounded-lg border border-[#dfe7df] pl-9 pr-3 text-xs outline-none focus:border-[#78967c]" />
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#78716c]" aria-hidden="true" />
+            <input value={search} onChange={(event) => setSearch(event.target.value)} aria-label="Buscar temas" placeholder="Buscar temas o respuestas" className="h-10 w-full rounded-lg border border-[#e7e5e4] pl-9 pr-3 text-xs outline-none focus:border-[#ea580c]" />
           </label>
         </div>
-        <p className="mt-3 text-[10px] text-[#849087]">
+        <p className="mt-3 text-[10px] text-[#78716c]">
           {selectedCourse === "Todos los cursos" ? "Los temas muestran a qué curso pertenece cada conversación." : `Estás viendo el espacio de ${selectedCourse}.`}
         </p>
       </section>
 
-      {showComposer && <form onSubmit={addThread} className="space-y-3 rounded-2xl border border-[#dfe7e0] bg-white p-4"><label className="block text-xs font-semibold text-[#536357]">Curso de la conversación<select name="course" defaultValue={courseName ?? (selectedCourse === "Todos los cursos" ? forumCourses[0] : selectedCourse)} disabled={Boolean(courseName)} className="mt-1.5 h-10 w-full rounded-lg border border-[#dfe7df] bg-white px-3 text-xs font-normal disabled:bg-[#f7f9f6]">{(courseName ? [courseName] : forumCourses).map((course) => <option key={course}>{course}</option>)}</select>{courseName && <input type="hidden" name="course" value={courseName} />}</label><label className="block text-xs font-semibold text-[#536357]">Título<input name="title" required maxLength={100} placeholder="¿Sobre qué quieres conversar?" className="mt-1.5 h-10 w-full rounded-lg border border-[#dfe7df] px-3 text-sm font-normal" /></label><label className="block text-xs font-semibold text-[#536357]">Mensaje<textarea name="body" required rows={3} maxLength={1000} placeholder="Escribe el contexto de tu consulta..." className="mt-1.5 w-full resize-y rounded-lg border border-[#dfe7df] px-3 py-2 text-sm font-normal" /></label><button type="submit" className="rounded-lg bg-[#315d3d] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#244d32]">Publicar en el foro</button></form>}
-      {notice && <p role="status" className="border border-[#dce8dc] bg-[#f1f7f1] px-4 py-2.5 text-xs text-[#4d7252]">{notice} No se guardó en un servidor.</p>}
+      {showComposer && <form onSubmit={addThread} className="space-y-3 rounded-2xl border border-[#e7e5e4] bg-white p-4"><label className="block text-xs font-semibold text-[#44403c]">Curso de la conversación<select name="course" defaultValue={courseName ?? (selectedCourse === "Todos los cursos" ? forumCourses[0] : selectedCourse)} disabled={Boolean(courseName)} className="mt-1.5 h-10 w-full rounded-lg border border-[#e7e5e4] bg-white px-3 text-xs font-normal disabled:bg-[#fff7ed]">{(courseName ? [courseName] : forumCourses).map((course) => <option key={course}>{course}</option>)}</select>{courseName && <input type="hidden" name="course" value={courseName} />}</label><label className="block text-xs font-semibold text-[#44403c]">Título<input name="title" required maxLength={100} placeholder="¿Sobre qué quieres conversar?" className="mt-1.5 h-10 w-full rounded-lg border border-[#e7e5e4] px-3 text-sm font-normal" /></label><label className="block text-xs font-semibold text-[#44403c]">Mensaje<textarea name="body" required rows={3} maxLength={1000} placeholder="Escribe el contexto de tu consulta..." className="mt-1.5 w-full resize-y rounded-lg border border-[#e7e5e4] px-3 py-2 text-sm font-normal" /></label><button type="submit" className="rounded-lg bg-[#f97316] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#ea580c]">Publicar en el foro</button></form>}
+      {notice && <p role="status" className="border border-[#fff7ed] bg-[#fff7ed] px-4 py-2.5 text-xs text-[#ea580c]">{notice} No se guardó en un servidor.</p>}
 
       <section className="space-y-3" aria-label="Temas del foro">
-        {visibleThreads.map((thread) => <article key={thread.id} className="border border-[#dfe7e0] bg-white">
+        {visibleThreads.map((thread) => <article key={thread.id} className="border border-[#e7e5e4] bg-white">
           <div className="flex flex-wrap items-start justify-between gap-3 p-4">
             <button type="button" onClick={() => setSelectedThread((current) => current === thread.id ? null : thread.id)} className="min-w-0 flex-1 text-left">
-              <span className="flex flex-wrap items-center gap-2">{thread.pinned && <span className="inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8a713d]"><Pin className="size-3" aria-hidden="true" /> Fijado</span>}{thread.closed && <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#87938a]"><LockKeyhole className="size-3" aria-hidden="true" /> Cerrado</span>}</span>
-              <span className="mt-1 block text-sm font-semibold text-[#304637]">{thread.title}</span>
-              <span className="mt-1 block text-xs leading-5 text-[#748177]">{thread.body}</span>
-              <span className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-[#8a958d]"><span className="font-semibold text-[#58705c]">{thread.course}</span><span>{thread.author}</span><span>{thread.date}</span><span>{thread.replies} respuestas</span></span>
+              <span className="flex flex-wrap items-center gap-2">{thread.pinned && <span className="inline-flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8a713d]"><Pin className="size-3" aria-hidden="true" /> Fijado</span>}{thread.closed && <span className="inline-flex items-center gap-1 text-[9px] font-semibold text-[#78716c]"><LockKeyhole className="size-3" aria-hidden="true" /> Cerrado</span>}</span>
+              <span className="mt-1 block text-sm font-semibold text-[#171717]">{thread.title}</span>
+              <span className="mt-1 block text-xs leading-5 text-[#44403c]">{thread.body}</span>
+              <span className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-[#a8a29e]"><span className="font-semibold text-[#ea580c]">{thread.course}</span><span>{thread.author}</span><span>{thread.date}</span><span>{thread.replies} respuestas</span></span>
             </button>
-            {role === "profesor" && <div className="flex gap-2"><button type="button" onClick={() => setThreads((current) => current.map((item) => item.id === thread.id ? { ...item, pinned: !item.pinned } : item))} className="border border-[#e1e8e1] px-2.5 py-1.5 text-[10px] font-semibold text-[#64766a] hover:bg-[#f6f9f6]">{thread.pinned ? "Desfijar" : "Fijar"}</button><button type="button" onClick={() => setThreads((current) => current.map((item) => item.id === thread.id ? { ...item, closed: !item.closed } : item))} className="border border-[#e1e8e1] px-2.5 py-1.5 text-[10px] font-semibold text-[#64766a] hover:bg-[#f6f9f6]">{thread.closed ? "Reabrir" : "Cerrar"}</button></div>}
+            {role === "profesor" && <div className="flex gap-2"><button type="button" onClick={() => setThreads((current) => current.map((item) => item.id === thread.id ? { ...item, pinned: !item.pinned } : item))} className="border border-[#e7e5e4] px-2.5 py-1.5 text-[10px] font-semibold text-[#44403c] hover:bg-[#fff7ed]">{thread.pinned ? "Desfijar" : "Fijar"}</button><button type="button" onClick={() => setThreads((current) => current.map((item) => item.id === thread.id ? { ...item, closed: !item.closed } : item))} className="border border-[#e7e5e4] px-2.5 py-1.5 text-[10px] font-semibold text-[#44403c] hover:bg-[#fff7ed]">{thread.closed ? "Reabrir" : "Cerrar"}</button></div>}
           </div>
-          {selectedThread === thread.id && <div className="border-t border-[#edf1ed] bg-[#fbfcfa] p-4"><div className="space-y-3"><p className="flex items-start gap-2 text-xs leading-5 text-[#64756a]"><span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-[#e7eee7] text-[8px] font-bold text-[#4c7052]">AC</span><span><strong className="text-[#405747]">Ana María Campos</strong><br />Buena pregunta. Revisemos el ejemplo en la próxima clase; mientras tanto, prueba ambos enfoques y compara el resultado.</span></p><p className="flex items-center gap-1.5 text-[10px] text-[#64806a]"><CheckCircle2 className="size-3.5" aria-hidden="true" />Respuesta del profesor</p></div>{!thread.closed && <form onSubmit={(event) => addReply(thread.id, event)} className="mt-4 flex gap-2"><input value={draftReply} onChange={(event) => setDraftReply(event.target.value)} aria-label="Escribe una respuesta" placeholder="Escribe una respuesta..." className="h-9 min-w-0 flex-1 border border-[#dfe7df] bg-white px-3 text-xs" /><button type="submit" aria-label="Enviar respuesta" className="grid size-9 shrink-0 place-items-center bg-[#315d3d] text-white hover:bg-[#244d32]"><Send className="size-3.5" aria-hidden="true" /></button></form>}</div>}
+          {selectedThread === thread.id && <div className="border-t border-[#fafaf9] bg-[#fff7ed] p-4"><div className="space-y-3"><p className="flex items-start gap-2 text-xs leading-5 text-[#44403c]"><span className="mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-[#fff7ed] text-[8px] font-bold text-[#ea580c]">AC</span><span><strong className="text-[#ea580c]">Ana María Campos</strong><br />Buena pregunta. Revisemos el ejemplo en la próxima clase; mientras tanto, prueba ambos enfoques y compara el resultado.</span></p><p className="flex items-center gap-1.5 text-[10px] text-[#ea580c]"><CheckCircle2 className="size-3.5" aria-hidden="true" />Respuesta del profesor</p></div>{!thread.closed && <form onSubmit={(event) => addReply(thread.id, event)} className="mt-4 flex gap-2"><input value={draftReply} onChange={(event) => setDraftReply(event.target.value)} aria-label="Escribe una respuesta" placeholder="Escribe una respuesta..." className="h-9 min-w-0 flex-1 border border-[#e7e5e4] bg-white px-3 text-xs" /><button type="submit" aria-label="Enviar respuesta" className="grid size-9 shrink-0 place-items-center bg-[#f97316] text-white hover:bg-[#ea580c]"><Send className="size-3.5" aria-hidden="true" /></button></form>}</div>}
         </article>)}
-        {visibleThreads.length === 0 && <div className="border border-dashed border-[#d9e2d9] bg-white px-5 py-12 text-center"><p className="text-sm font-semibold text-[#3f5645]">No hay temas con esa búsqueda</p><p className="mt-1 text-xs text-[#829087]">Prueba con otra palabra.</p></div>}
+        {visibleThreads.length === 0 && <div className="border border-dashed border-[#e7e5e4] bg-white px-5 py-12 text-center"><p className="text-sm font-semibold text-[#ea580c]">No hay temas con esa búsqueda</p><p className="mt-1 text-xs text-[#78716c]">Prueba con otra palabra.</p></div>}
       </section>
     </div>
   );

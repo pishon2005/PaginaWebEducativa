@@ -13,8 +13,8 @@ export default async function ProfesorNuevoQuizPage({
 
   return (
     <div className="space-y-5">
-      <TeacherCourseHeader courseId={id} section="evaluaciones" description={`Prepara una evaluación para el grupo de ${course.title}.`} action={<Link href={`/profesor/mis-cursos/${id}/quizzes`} className="text-xs font-semibold text-[#56715b] hover:text-[#173c2d]">Volver a evaluaciones</Link>} />
-      <h2 className="text-lg font-semibold text-[#243d2e]">Nuevo quiz</h2>
+      <TeacherCourseHeader courseId={id} section="evaluaciones" description={`Prepara una evaluación para el grupo de ${course.title}.`} action={<Link href={`/profesor/mis-cursos/${id}/quizzes`} className="text-xs font-semibold text-[#ea580c] hover:text-[#f97316]">Volver a evaluaciones</Link>} />
+      <h2 className="text-lg font-semibold text-[#171717]">Nuevo quiz</h2>
       <DemoQuizBuilder courseId={id} />
     </div>
   );

@@ -7,7 +7,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ProyectoClases | Cursos en línea",
+  title: "EDUKATECH | Cursos en línea",
   description: "Plataforma de cursos en línea",
 };
 

@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PaymentReviewActions } from "@/components/shared/payment-review-actions";
+import { demoPayments, getCourseById } from "@/lib/demo-data";
 
 export default async function AdminPagoDetallePage({
   params,
@@ -9,6 +10,8 @@ export default async function AdminPagoDetallePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const payment = demoPayments.find((entry) => entry.id === Number(id)) ?? demoPayments[0];
+  const course = getCourseById(payment.courseId);
 
   return (
     <div>
@@ -43,23 +46,23 @@ export default async function AdminPagoDetallePage({
             <CardContent className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Alumno</span>
-                <span className="font-medium">Juan Pérez</span>
+                <span className="font-medium">{payment.student}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Curso</span>
-                <span className="font-medium">Python desde Cero</span>
+                <span className="font-medium">{course.title}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Monto</span>
-                <span className="font-medium">S/ 99.00</span>
+                <span className="font-medium">S/ {payment.amount}.00</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Método</span>
-                <span className="font-medium">Yape</span>
+                <span className="font-medium">{payment.method}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Estado inicial</span>
-                <Badge variant="secondary">Pendiente</Badge>
+                <Badge variant={payment.status === "aprobado" ? "default" : payment.status === "rechazado" ? "destructive" : "secondary"} className="capitalize">{payment.status}</Badge>
               </div>
             </CardContent>
           </Card>

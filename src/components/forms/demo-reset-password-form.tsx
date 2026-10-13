@@ -25,26 +25,26 @@ export function DemoResetPasswordForm({ returnTo }: { returnTo: string }) {
 
   if (updated) {
     return (
-      <section className="w-full max-w-md border border-[#dce5dc] bg-white p-6 text-center shadow-[0_25px_80px_-55px_rgba(20,55,37,0.5)] sm:p-8">
-        <CheckCircle2 className="mx-auto size-9 text-[#5e8563]" aria-hidden="true" />
-        <h1 className="mt-4 text-xl font-semibold text-[#193b2b]">Contraseña actualizada</h1>
-        <p className="mt-2 text-sm leading-6 text-[#738178]">El cambio se simuló correctamente. No se guardó una contraseña real.</p>
-        <button type="button" onClick={() => router.push(returnTo)} className="mt-5 h-10 w-full bg-[#173c2d] text-xs font-semibold text-white hover:bg-[#24543e]">Continuar</button>
+      <section className="w-full max-w-md border border-[#e7e5e4] bg-white p-6 text-center shadow-[0_25px_80px_-55px_rgba(28,25,23,0.5)] sm:p-8">
+        <CheckCircle2 className="mx-auto size-9 text-[#ea580c]" aria-hidden="true" />
+        <h1 className="mt-4 text-xl font-semibold text-[#171717]">Contraseña actualizada</h1>
+        <p className="mt-2 text-sm leading-6 text-[#44403c]">El cambio se simuló correctamente. No se guardó una contraseña real.</p>
+        <button type="button" onClick={() => router.push(returnTo)} className="mt-5 h-10 w-full bg-[#f97316] text-xs font-semibold text-white hover:bg-[#ea580c]">Continuar</button>
       </section>
     );
   }
 
   return (
-    <section className="w-full max-w-md border border-[#dce5dc] bg-white p-6 shadow-[0_25px_80px_-55px_rgba(20,55,37,0.5)] sm:p-8">
-      <h1 className="text-2xl font-semibold text-[#193b2b]">Nueva contraseña</h1>
-      <p className="mt-2 text-sm leading-6 text-[#738178]">Crea una contraseña de al menos 8 caracteres para continuar.</p>
+    <section className="w-full max-w-md border border-[#e7e5e4] bg-white p-6 shadow-[0_25px_80px_-55px_rgba(28,25,23,0.5)] sm:p-8">
+      <h1 className="text-2xl font-semibold text-[#171717]">Nueva contraseña</h1>
+      <p className="mt-2 text-sm leading-6 text-[#44403c]">Crea una contraseña de al menos 8 caracteres para continuar.</p>
       <form onSubmit={updatePassword} className="mt-5 space-y-4">
-        <label htmlFor="password" className="block text-xs font-semibold text-[#4c5f51]">Nueva contraseña<input id="password" name="password" type="password" minLength={8} required autoComplete="new-password" className="mt-1.5 h-11 w-full border border-[#d8e1d9] px-3 text-sm font-normal outline-none focus:border-[#63856a]" /></label>
-        <label htmlFor="confirmation" className="block text-xs font-semibold text-[#4c5f51]">Confirmar contraseña<input id="confirmation" name="confirmation" type="password" minLength={8} required autoComplete="new-password" className="mt-1.5 h-11 w-full border border-[#d8e1d9] px-3 text-sm font-normal outline-none focus:border-[#63856a]" /></label>
+        <label htmlFor="password" className="block text-xs font-semibold text-[#ea580c]">Nueva contraseña<input id="password" name="password" type="password" minLength={8} required autoComplete="new-password" className="mt-1.5 h-11 w-full border border-[#e7e5e4] px-3 text-sm font-normal outline-none focus:border-[#ea580c]" /></label>
+        <label htmlFor="confirmation" className="block text-xs font-semibold text-[#ea580c]">Confirmar contraseña<input id="confirmation" name="confirmation" type="password" minLength={8} required autoComplete="new-password" className="mt-1.5 h-11 w-full border border-[#e7e5e4] px-3 text-sm font-normal outline-none focus:border-[#ea580c]" /></label>
         {error && <p role="alert" className="text-xs font-medium text-[#a24135]">{error}</p>}
-        <button type="submit" className="h-11 w-full bg-[#173c2d] text-sm font-semibold text-white hover:bg-[#24543e]">Guardar nueva contraseña</button>
+        <button type="submit" className="h-11 w-full bg-[#f97316] text-sm font-semibold text-white hover:bg-[#ea580c]">Guardar nueva contraseña</button>
       </form>
-      <Link href="/login" className="mt-4 block text-center text-xs font-semibold text-[#66806b] hover:text-[#173c2d]">Volver al inicio de sesión</Link>
+      <Link href="/login" className="mt-4 block text-center text-xs font-semibold text-[#ea580c] hover:text-[#f97316]">Volver al inicio de sesión</Link>
     </section>
   );
 }

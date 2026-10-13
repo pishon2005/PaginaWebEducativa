@@ -21,12 +21,12 @@ export default async function ProfesorAlumnosPage({
     <div className="space-y-5">
       <TeacherCourseHeader courseId={id} section="alumnos" description={`Sigue el avance de quienes participan en ${course.title}.`} />
 
-      <Card className="rounded-2xl border-[#e1e8e1] p-3 sm:p-4">
+      <Card className="rounded-2xl border-[#e7e5e4] p-3 sm:p-4">
         <div className="space-y-1">
           {alumnosDemo.map((a) => (
             <div
               key={a.id}
-              className="flex flex-wrap items-center gap-4 rounded-xl px-3 py-3 odd:bg-[#f7faf7]"
+              className="flex flex-wrap items-center gap-4 rounded-xl px-3 py-3 odd:bg-[#fff7ed]"
             >
               <Avatar>
                 <AvatarFallback>
