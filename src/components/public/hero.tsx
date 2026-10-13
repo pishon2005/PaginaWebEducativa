@@ -3,14 +3,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BenefitsBar } from "./benefits-bar";
 
-const technologies = [
-  { label: "Python", icon: "/img/python.webp" },
-  { label: "MicroPython", icon: "/img/libro.webp" },
-  { label: "ESP32", icon: "/img/procesador.webp" },
-  { label: "Electrónica", icon: "/img/rayo_minimalista.webp" },
-  { label: "IoT", icon: "/img/redwifi.webp" },
-];
-
 export function Hero() {
   return (
     <section
@@ -85,53 +77,6 @@ export function Hero() {
             aria-hidden="true"
           />
         </div>
-      </div>
-
-      <aside
-        aria-label="Tecnologías que aprenderás"
-        className="pointer-events-none absolute top-[45%] right-24 z-30 hidden w-56 -translate-y-1/2 select-none rounded-2xl border border-white/15 bg-neutral-950/80 p-3 shadow-2xl shadow-black/50 backdrop-blur-xl lg:block xl:right-72 xl:w-60 xl:p-3.5"
-      >
-        <ul className="grid gap-2">
-          {technologies.map(({ label, icon }) => (
-            <li
-              key={label}
-              className="flex min-w-0 items-center gap-3 rounded-xl border border-white/[0.05] bg-white/[0.03] px-3 py-2 text-sm font-medium text-white xl:gap-4 xl:px-3.5 xl:py-2.5 xl:text-[15px]"
-            >
-              <Image
-                src={icon}
-                alt=""
-                width={40}
-                height={40}
-                draggable={false}
-                className="size-9 shrink-0 select-none object-contain xl:size-10"
-              />
-              <span className="truncate">{label}</span>
-            </li>
-          ))}
-        </ul>
-      </aside>
-
-      <div className="relative z-20 px-5 pb-5 sm:px-8 lg:hidden">
-        <aside
-          aria-label="Tecnologías que aprenderás"
-          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 rounded-xl border border-white/15 bg-neutral-950/70 px-4 py-3 backdrop-blur-xl"
-        >
-          {technologies.map(({ label, icon }) => (
-            <div key={label} className="flex flex-col items-center gap-1">
-              <Image
-                src={icon}
-                alt={label}
-                width={28}
-                height={28}
-                draggable={false}
-                className="size-7 object-contain"
-              />
-              <span className="text-[9px] font-medium text-neutral-300 sm:text-[10px]">
-                {label}
-              </span>
-            </div>
-          ))}
-        </aside>
       </div>
 
       <BenefitsBar />

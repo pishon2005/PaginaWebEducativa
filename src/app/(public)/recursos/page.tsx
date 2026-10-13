@@ -25,7 +25,7 @@ const resourceGroups = [
     title: "Comunidad y soporte",
     description: "Espacios para resolver dudas y compartir avances con otros estudiantes.",
     icon: "/img/personas.webp",
-    items: ["Foro de estudiantes", "Sesiones de preguntas en vivo", "Canal de Discord", "Mentorías 1 a 1"],
+    items: ["Chat con profesores y compañeros", "Sesiones de preguntas en vivo", "Canal de Discord", "Mentorías 1 a 1"],
   },
 ];
 

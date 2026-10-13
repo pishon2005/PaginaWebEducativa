@@ -24,21 +24,53 @@ const initialMessages: ChatMessage[] = [
   { id: 4, author: "Tú", initials: "AN", content: "Perfecto, muchas gracias. Lo estaré subiendo hoy.", time: "09:31", own: true },
 ];
 
-const studentConversations = [
-  { name: "Fundamentos de Python", detail: "Ana María Campos · Curso", unread: 2, initials: "PY" },
-  { name: "Ana María Campos", detail: "Profesora · Directo", unread: 0, initials: "AC" },
-  { name: "Equipo de estudio", detail: "Valeria, Diego y tú", unread: 1, initials: "ES" },
+type ConversationType = "curso" | "profesor" | "compañero" | "alumno" | "colega";
+
+type Conversation = {
+  name: string;
+  detail: string;
+  unread: number;
+  initials: string;
+  type: ConversationType;
+};
+
+const studentConversations: Conversation[] = [
+  { name: "Fundamentos de Python", detail: "Ana María Campos · Curso", unread: 2, initials: "PY", type: "curso" },
+  { name: "Excel para negocios", detail: "Carlos Mendoza · Curso", unread: 0, initials: "EX", type: "curso" },
+  { name: "Ana María Campos", detail: "Profesora · Directo", unread: 0, initials: "AC", type: "profesor" },
+  { name: "Carlos Mendoza", detail: "Profesor · Directo", unread: 0, initials: "CM", type: "profesor" },
+  { name: "Diego Martínez", detail: "Compañero · Fundamentos de Python", unread: 1, initials: "DM", type: "compañero" },
+  { name: "Equipo de estudio", detail: "Valeria, Diego y tú", unread: 1, initials: "ES", type: "compañero" },
 ];
 
-const teacherConversations = [
-  { name: "Fundamentos de Python", detail: "Chat del curso · 54 alumnos", unread: 8, initials: "PY" },
-  { name: "Valeria Rojas", detail: "Alumna · Fundamentos de Python", unread: 1, initials: "VR" },
-  { name: "Excel para negocios", detail: "Chat del curso · 42 alumnos", unread: 0, initials: "EX" },
+const teacherConversations: Conversation[] = [
+  { name: "Fundamentos de Python", detail: "Chat del curso · 54 alumnos", unread: 8, initials: "PY", type: "curso" },
+  { name: "Excel para negocios", detail: "Chat del curso · 42 alumnos", unread: 0, initials: "EX", type: "curso" },
+  { name: "Valeria Rojas", detail: "Alumna · Fundamentos de Python", unread: 1, initials: "VR", type: "alumno" },
+  { name: "Diego Martínez", detail: "Alumno · Excel para negocios", unread: 0, initials: "DM", type: "alumno" },
+  { name: "Carlos Mendoza", detail: "Profesor · Colega", unread: 2, initials: "CM", type: "colega" },
+  { name: "Coordinación docente", detail: "Profesores · General", unread: 0, initials: "CD", type: "colega" },
+];
+
+const studentFilters: { id: string; label: string; types: ConversationType[] }[] = [
+  { id: "todos", label: "Todos", types: ["curso", "profesor", "compañero"] },
+  { id: "cursos", label: "Cursos", types: ["curso"] },
+  { id: "profesores", label: "Profesores", types: ["profesor"] },
+  { id: "compañeros", label: "Compañeros", types: ["compañero"] },
+];
+
+const teacherFilters: { id: string; label: string; types: ConversationType[] }[] = [
+  { id: "todos", label: "Todos", types: ["curso", "alumno", "colega"] },
+  { id: "cursos", label: "Cursos", types: ["curso"] },
+  { id: "alumnos", label: "Alumnos", types: ["alumno"] },
+  { id: "colegas", label: "Colegas", types: ["colega"] },
 ];
 
 export function DemoChat({ role, courseName }: DemoChatProps) {
   const conversations = role === "profesor" ? teacherConversations : studentConversations;
+  const filters = role === "profesor" ? teacherFilters : studentFilters;
   const [activeName, setActiveName] = useState(courseName ?? conversations[0].name);
+  const [activeFilter, setActiveFilter] = useState("todos");
   const [messages, setMessages] = useState(initialMessages);
   const [message, setMessage] = useState("");
   const [search, setSearch] = useState("");
@@ -48,10 +80,15 @@ export function DemoChat({ role, courseName }: DemoChatProps) {
   const activeConversation = conversations.find(
     (conversation) => conversation.name === activeName,
   );
-  const filteredConversations = useMemo(
-    () => conversations.filter((conversation) => conversation.name.toLowerCase().includes(search.toLowerCase())),
-    [conversations, search],
-  );
+  const filteredConversations = useMemo(() => {
+    const allowedTypes = filters.find((filter) => filter.id === activeFilter)?.types ?? [];
+    return conversations.filter(
+      (conversation) =>
+        allowedTypes.includes(conversation.type) &&
+        (conversation.name.toLowerCase().includes(search.toLowerCase()) ||
+          conversation.detail.toLowerCase().includes(search.toLowerCase())),
+    );
+  }, [conversations, filters, activeFilter, search]);
 
   useEffect(() => {
     if (mobileThreadOpen) {
@@ -90,6 +127,13 @@ export function DemoChat({ role, courseName }: DemoChatProps) {
             <Search className="absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-[#78716c]" aria-hidden="true" />
             <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Buscar conversación" aria-label="Buscar conversación" className="h-10 w-full rounded-xl border border-[#e7e5e4] bg-white pl-9 pr-3 text-xs outline-none transition focus:border-[#ea580c] focus:ring-2 focus:ring-[#fff7ed]" />
           </label>
+          <div className="mt-3 flex flex-wrap gap-1.5" role="group" aria-label="Filtrar conversaciones">
+            {filters.map((filter) => (
+              <button key={filter.id} type="button" onClick={() => setActiveFilter(filter.id)} aria-pressed={activeFilter === filter.id} className={`rounded-full px-3 py-1.5 text-[10px] font-semibold transition ${activeFilter === filter.id ? "bg-[#f97316] text-white" : "border border-[#e7e5e4] bg-white text-[#44403c] hover:bg-[#fff7ed]"}`}>
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="min-h-0 flex-1 space-y-1 overflow-y-auto p-2">
           {filteredConversations.map((conversation) => (

@@ -8,7 +8,7 @@ const permissions = [
   { action: "Crear y calificar actividades", superadmin: true, admin: true, profesor: "Propios", alumno: false },
   { action: "Entregar tareas y resolver quizzes", superadmin: false, admin: false, profesor: false, alumno: true },
   { action: "Ver notas propias", superadmin: false, admin: false, profesor: false, alumno: true },
-  { action: "Participar en chat y foro", superadmin: true, admin: true, profesor: true, alumno: true },
+  { action: "Participar en el chat", superadmin: true, admin: true, profesor: true, alumno: true },
   { action: "Ver reportes y configurar sitio", superadmin: true, admin: true, profesor: false, alumno: false },
   { action: "Gestionar roles y permisos", superadmin: true, admin: false, profesor: false, alumno: false },
 ];

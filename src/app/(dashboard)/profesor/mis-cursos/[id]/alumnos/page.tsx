@@ -1,12 +1,13 @@
 import { TeacherCourseHeader } from "@/components/shared/teacher-course-header";
-import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
 import { getDemoCourse } from "@/lib/demo-courses";
+import { getDemoCourseContent } from "@/lib/demo-course-content";
+import { DemoStudentProgress } from "@/components/shared/demo-student-progress";
 
 const alumnosDemo = [
-  { id: 1, nombre: "Juan Pérez", email: "juan@email.com", progreso: 65 },
-  { id: 2, nombre: "María López", email: "maria@email.com", progreso: 40 },
+  { id: 1, nombre: "Juan Pérez", email: "juan@email.com", completedModules: [true, true, false] },
+  { id: 2, nombre: "María López", email: "maria@email.com", completedModules: [true, false, false] },
+  { id: 3, nombre: "Valeria Rojas", email: "alumno@edukatech.pe", completedModules: [true, true, true] },
+  { id: 4, nombre: "Diego Martínez", email: "diego@email.com", completedModules: [false, false, false] },
 ];
 
 export default async function ProfesorAlumnosPage({
@@ -16,34 +17,21 @@ export default async function ProfesorAlumnosPage({
 }) {
   const { id } = await params;
   const course = getDemoCourse(id);
+  const modules = getDemoCourseContent(id).map((module) => module.title);
 
   return (
     <div className="space-y-5">
       <TeacherCourseHeader courseId={id} section="alumnos" description={`Sigue el avance de quienes participan en ${course.title}.`} />
 
-      <Card className="rounded-2xl border-[#e7e5e4] p-3 sm:p-4">
-        <div className="space-y-1">
-          {alumnosDemo.map((a) => (
-            <div
-              key={a.id}
-              className="flex flex-wrap items-center gap-4 rounded-xl px-3 py-3 odd:bg-[#fff7ed]"
-            >
-              <Avatar>
-                <AvatarFallback>
-                  {a.nombre.split(" ").map((n) => n[0]).join("")}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <p className="font-medium">{a.nombre}</p>
-                <p className="text-xs text-muted-foreground">{a.email}</p>
-              </div>
-              <div className="w-full sm:ml-auto sm:w-40">
-                <Progress value={a.progreso} />
-              </div>
-            </div>
-          ))}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#e7e5e4] bg-white px-4 py-3">
+        <div>
+          <p className="text-sm font-semibold text-[#171717]">Progreso por módulos</p>
+          <p className="mt-1 text-xs text-[#78716c]">Expande a cada alumno para ver qué módulos completó o escríbele directamente.</p>
         </div>
-      </Card>
+        <span className="rounded-full bg-[#fff7ed] px-3 py-1 text-xs font-semibold text-[#ea580c]">{alumnosDemo.length} alumnos</span>
+      </div>
+
+      <DemoStudentProgress courseId={id} modules={modules} students={alumnosDemo} />
     </div>
   );
 }

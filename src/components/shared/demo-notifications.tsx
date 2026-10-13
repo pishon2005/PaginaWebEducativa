@@ -9,12 +9,12 @@ const notificationsByRole: Record<string, Notification[]> = {
   alumno: [
     { title: "Nueva clase disponible", detail: "Ya puedes comenzar el módulo de esta semana en Fundamentos de Python.", time: "Hace 10 min" },
     { title: "Fecha de entrega próxima", detail: "Tu práctica de Python vence el 7 de octubre.", time: "Hace 2 h" },
-    { title: "Respuesta en el foro", detail: "Ana María respondió tu consulta sobre funciones.", time: "Ayer" },
+    { title: "Respuesta del profesor", detail: "Ana María respondió tu consulta sobre funciones por mensaje.", time: "Ayer" },
     { title: "Nota publicada", detail: "Ya está disponible tu calificación del Ejercicio 2.", time: "Hace 2 días" },
   ],
   profesor: [
     { title: "Entregas por revisar", detail: "Tienes 8 actividades nuevas en Fundamentos de Python.", time: "Hace 20 min" },
-    { title: "Pregunta en el foro", detail: "Un alumno comentó en Fundamentos de Python.", time: "Hace 1 h" },
+    { title: "Mensaje de un alumno", detail: "Un alumno preguntó por la práctica de Fundamentos de Python.", time: "Hace 1 h" },
     { title: "Nueva inscripción", detail: "Un alumno se inscribió a Desarrollo web con React.", time: "Ayer" },
   ],
   admin: [

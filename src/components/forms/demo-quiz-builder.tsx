@@ -2,10 +2,12 @@
 
 import { FormEvent, useState } from "react";
 import { CheckCircle2, Plus, Trash2 } from "lucide-react";
+import { getDemoCourseContent } from "@/lib/demo-course-content";
 
 type QuestionDraft = { id: number; type: string };
 
 export function DemoQuizBuilder({ courseId }: { courseId: string }) {
+  const modules = getDemoCourseContent(courseId);
   const [questions, setQuestions] = useState<QuestionDraft[]>([{ id: 1, type: "Opción múltiple" }]);
   const [saved, setSaved] = useState(false);
 
@@ -30,6 +32,7 @@ export function DemoQuizBuilder({ courseId }: { courseId: string }) {
         <label className="text-xs font-semibold text-[#44403c] sm:col-span-2">Título del quiz<input required placeholder="Ej. Fundamentos de funciones" className="mt-1.5 h-10 w-full border border-[#e7e5e4] px-3 text-sm font-normal" /></label>
         <label className="text-xs font-semibold text-[#44403c]">Tiempo límite<select className="mt-1.5 h-10 w-full border border-[#e7e5e4] bg-white px-3 text-xs font-normal"><option>Sin límite</option><option>15 minutos</option><option>30 minutos</option><option>60 minutos</option></select></label>
         <label className="text-xs font-semibold text-[#44403c]">Intentos permitidos<select className="mt-1.5 h-10 w-full border border-[#e7e5e4] bg-white px-3 text-xs font-normal"><option>1 intento</option><option>2 intentos</option><option>3 intentos</option></select></label>
+        <label className="text-xs font-semibold text-[#44403c] sm:col-span-2">Módulo asignado<select required className="mt-1.5 h-10 w-full border border-[#e7e5e4] bg-white px-3 text-xs font-normal">{modules.map((module, index) => <option key={module.title}>Módulo {index + 1} · {module.title}</option>)}</select></label>
         <label className="flex items-center gap-2 text-xs text-[#44403c] sm:col-span-2"><input type="checkbox" className="accent-[#f97316]" /> Mostrar respuestas al finalizar el intento</label>
       </section>
 

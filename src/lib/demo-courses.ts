@@ -10,6 +10,8 @@ export interface DemoCourse {
   students: string;
   enrolled: number;
   progress: number;
+  icon: string;
+  artwork: string;
 }
 
 function toDemoCourse(id: string): DemoCourse {
@@ -24,6 +26,8 @@ function toDemoCourse(id: string): DemoCourse {
     students: course.students,
     enrolled: course.enrolled,
     progress: course.progress,
+    icon: course.icon,
+    artwork: course.artwork,
   };
 }
 

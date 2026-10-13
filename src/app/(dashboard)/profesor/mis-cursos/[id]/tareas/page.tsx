@@ -3,9 +3,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { Plus, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { getDemoCourse } from "@/lib/demo-courses";
 import { getAssignmentsByCourse } from "@/lib/demo-data";
+import { DemoCreateSection } from "@/components/shared/demo-create-section";
+import { DemoTaskBuilder } from "@/components/forms/demo-task-builder";
 
 export default async function ProfesorTareasPage({
   params,
@@ -23,7 +25,6 @@ export default async function ProfesorTareasPage({
         courseId={id}
         section="tareas"
         description="Prepara actividades, revisa plazos y acompaña las entregas."
-        action={<Link href={`/profesor/mis-cursos/${id}/tareas/nueva`} className={buttonVariants()}><Plus className="mr-2 h-4 w-4" /> Nueva tarea</Link>}
       />
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#e7e5e4] bg-white px-4 py-3">
         <div><p className="text-sm font-semibold text-[#171717]">Actividades del curso</p><p className="mt-1 text-xs text-[#78716c]">{course.title}</p></div>
@@ -52,6 +53,10 @@ export default async function ProfesorTareasPage({
           </Card>
         ))}
       </div>
+
+      <DemoCreateSection label="Nueva tarea">
+        <DemoTaskBuilder courseId={id} />
+      </DemoCreateSection>
     </div>
   );
 }

@@ -17,7 +17,6 @@ import {
   CreditCard,
   Settings,
   CalendarDays,
-  MessageCircle,
   Award,
   UserRound,
   ShieldCheck,
@@ -50,7 +49,7 @@ const demoNotifications = {
   ],
   profesor: [
     { title: "Entregas por revisar", detail: "Tienes 8 actividades nuevas en Python.", time: "Hace 20 min" },
-    { title: "Pregunta en el foro", detail: "Un alumno comentó en Fundamentos de Python.", time: "Hace 1 h" },
+    { title: "Mensaje de un alumno", detail: "Valeria preguntó por la entrega de Fundamentos de Python.", time: "Hace 1 h" },
   ],
   alumno: [
     { title: "Nueva clase disponible", detail: "Ya puedes comenzar el módulo de esta semana.", time: "Hace 10 min" },
@@ -97,7 +96,6 @@ const navigation = {
         { href: "/profesor", label: "Resumen", icon: LayoutDashboard },
         { href: "/profesor/mis-cursos", label: "Mis cursos", icon: BookOpen },
         { href: "/profesor/chat", label: "Mensajes", icon: MessageSquareText },
-        { href: "/profesor/foro", label: "Foro", icon: MessageCircle },
         { href: "/profesor/calendario", label: "Calendario", icon: CalendarDays },
         { href: "/profesor/perfil", label: "Mi perfil", icon: UserRound },
       ],
@@ -202,28 +200,6 @@ export function DashboardTopbar() {
           <p className="mt-0.5 text-xs font-semibold text-[#171717] sm:text-sm">{identity.name}</p>
         </div>
         <div className="flex items-center gap-4">
-          {(role === "admin" || role === "superadmin") && (
-            <div className="hidden items-center gap-1 rounded-xl border border-[#e7e5e4] bg-[#fff7ed] p-1 sm:flex" aria-label="Cambiar vista de demostración">
-              {roleViews.map((view) => {
-                const active = role === getRole(view.href);
-                return (
-                  <Link
-                    key={view.href}
-                    href={view.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
-                      active
-                        ? "bg-[#f97316] text-white shadow-sm"
-                        : "text-[#44403c] hover:bg-white hover:text-[#f97316]",
-                    )}
-                  >
-                    {view.shortLabel}
-                  </Link>
-                );
-              })}
-            </div>
-          )}
           <details className="group relative">
             <summary aria-label={`Notificaciones: ${demoNotifications[role].length} avisos recientes`} className="relative grid size-10 cursor-pointer list-none place-items-center rounded-xl border border-[#e7e5e4] bg-white text-[#ea580c] transition hover:bg-[#fafaf9] [&::-webkit-details-marker]:hidden">
               <Bell className="size-[18px]" aria-hidden="true" />
@@ -245,12 +221,35 @@ export function DashboardTopbar() {
               <Link href={`/${role}/notificaciones`} className="block border-t border-[#fafaf9] px-4 py-3 text-center text-xs font-semibold text-[#ea580c] hover:bg-[#fff7ed]">Ver todas las notificaciones</Link>
             </section>
           </details>
-          <Link href="/" aria-label="Ir al sitio público" className="hidden items-center gap-1.5 text-xs font-semibold text-[#ea580c] hover:text-[#ea580c] md:flex">
-            Sitio público <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </Link>
-          <div className="grid size-9 place-items-center rounded-full bg-[#fff7ed] text-xs font-bold text-[#ea580c]" aria-label={`Cuenta demo: ${identity.name}`}>
-            {identity.initials}
-          </div>
+          <details className="group relative">
+            <summary aria-label={`Cuenta demo: ${identity.name}`} className="grid size-9 cursor-pointer list-none place-items-center rounded-full bg-[#fff7ed] text-xs font-bold text-[#ea580c] ring-[#e7e5e4] transition hover:ring-2 [&::-webkit-details-marker]:hidden">
+              {identity.initials}
+            </summary>
+            <section aria-label="Menú de cuenta" className="absolute right-0 top-12 z-50 w-56 overflow-hidden rounded-2xl border border-[#e7e5e4] bg-white shadow-[0_20px_55px_-25px_rgba(28,25,23,0.35)]">
+              <div className="border-b border-[#fafaf9] px-4 py-3.5">
+                <p className="text-sm font-semibold text-[#171717]">{identity.name}</p>
+                <p className="mt-0.5 text-[10px] text-[#78716c]">{getRoleName(role)} · cuenta demo</p>
+              </div>
+              <nav className="p-1.5 text-xs font-medium text-[#44403c]">
+                {(role === "alumno" || role === "profesor") && (
+                  <Link href={`/${role}/perfil`} className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 transition hover:bg-[#fff7ed] hover:text-[#ea580c]">
+                    <UserRound className="size-4" aria-hidden="true" /> Mi perfil
+                  </Link>
+                )}
+                <Link href={`/${role}/notificaciones`} className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 transition hover:bg-[#fff7ed] hover:text-[#ea580c]">
+                  <Bell className="size-4" aria-hidden="true" /> Notificaciones
+                </Link>
+                <Link href="/" className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 transition hover:bg-[#fff7ed] hover:text-[#ea580c]">
+                  <ArrowUpRight className="size-4" aria-hidden="true" /> Ir al sitio público
+                </Link>
+              </nav>
+              <div className="border-t border-[#fafaf9] p-1.5">
+                <Link href="/login" className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-xs font-semibold text-[#a24135] transition hover:bg-[#fff4f2]">
+                  <KeyRound className="size-4" aria-hidden="true" /> Cerrar sesión demo
+                </Link>
+              </div>
+            </section>
+          </details>
         </div>
       </header>
       <div className="relative z-30 border-b border-[#e7e5e4] bg-white lg:hidden">
@@ -282,16 +281,6 @@ export function DashboardTopbar() {
               </div>
             </div>
           ))}
-          {(role === "admin" || role === "superadmin") && (
-            <div className="mt-4 border-t border-[#fafaf9] pt-3">
-              <p className="mb-2 px-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#78716c]">Otros espacios</p>
-              <div className="flex flex-wrap gap-2">
-                {roleViews.filter((view) => role !== getRole(view.href)).map((view) => (
-                  <Link key={view.href} href={view.href} onClick={() => setMobileNavOpen(false)} className="rounded-full border border-[#e7e5e4] px-3 py-1.5 text-[11px] font-medium text-[#44403c] hover:bg-[#fafaf9]">{view.shortLabel}</Link>
-                ))}
-              </div>
-            </div>
-          )}
         </nav>
         )}
       </div>

@@ -3,7 +3,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ArrowUpRight, BookOpen, Plus, UsersRound } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, Plus, UsersRound } from "lucide-react";
 import { getDemoCourse } from "@/lib/demo-courses";
 import { demoCoursesList } from "@/lib/demo-data";
 
@@ -29,14 +30,14 @@ export default function AdminCursosPage() {
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {cursosDemo.map((c) => (
           <Link key={c.course.id} href={`/admin/cursos/${c.course.id}`} className="group block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ea580c] focus-visible:ring-offset-2">
-            <Card className="h-full rounded-2xl border-[#e7e5e4] transition duration-200 group-hover:-translate-y-0.5 group-hover:shadow-lg">
+            <Card className="h-full overflow-hidden rounded-2xl border-[#e7e5e4] transition duration-200 group-hover:-translate-y-0.5 group-hover:shadow-lg">
+              <div className={`relative isolate flex aspect-[2.4/1] items-end overflow-hidden bg-gradient-to-br ${c.course.artwork} p-4`}>
+                <Image src={c.course.icon} alt="" width={120} height={120} className="absolute right-4 top-1/2 size-20 -translate-y-1/2 rounded-2xl object-cover opacity-90 shadow-lg" aria-hidden="true" />
+                <Badge variant={c.publicado ? "default" : "secondary"}>
+                  {c.publicado ? "Publicado" : "Borrador"}
+                </Badge>
+              </div>
               <CardHeader className="gap-4">
-                <div className="flex items-center justify-between">
-                  <span className="grid size-10 place-items-center rounded-xl bg-[#fff7ed] text-[#ea580c]"><BookOpen className="size-[18px]" aria-hidden="true" /></span>
-                  <Badge variant={c.publicado ? "default" : "secondary"}>
-                    {c.publicado ? "Publicado" : "Borrador"}
-                  </Badge>
-                </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#44403c]">{c.course.subject} · {c.course.level}</p>
                   <CardTitle className="mt-1 text-base text-[#171717]">{c.course.title}</CardTitle>

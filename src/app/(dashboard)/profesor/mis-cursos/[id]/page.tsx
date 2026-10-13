@@ -1,8 +1,15 @@
 import { TeacherCourseHeader } from "@/components/shared/teacher-course-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { ArrowRight, BookOpen, ClipboardCheck, UsersRound } from "lucide-react";
+import { ArrowRight, CalendarClock, ClipboardCheck, MessageCircle } from "lucide-react";
 import { getDemoCourse } from "@/lib/demo-courses";
+import { getAssignmentsByCourse } from "@/lib/demo-data";
+import { getDemoCourseContent } from "@/lib/demo-course-content";
+
+const pendingReviews = [
+  { student: "Juan Pérez", task: "Ejercicio 1 · Funciones y colecciones", sent: "Hoy, 08:40" },
+  { student: "María López", task: "Ejercicio 1 · Funciones y colecciones", sent: "Ayer, 21:15" },
+  { student: "Diego Martínez", task: "Ejercicio 2 · Automatización", sent: "Ayer, 18:02" },
+];
 
 export default async function ProfesorCursoPage({
   params,
@@ -11,51 +18,81 @@ export default async function ProfesorCursoPage({
 }) {
   const { id } = await params;
   const course = getDemoCourse(id);
+  const assignments = getAssignmentsByCourse(id);
+  const modules = getDemoCourseContent(id);
+  const totalSubmissions = assignments.reduce((total, task) => total + task.submissions, 0);
+  const nextDeadlines = [...assignments].sort((a, b) => a.deadlineISO.localeCompare(b.deadlineISO)).slice(0, 3);
 
   return (
     <div className="space-y-5">
       <TeacherCourseHeader
         courseId={id}
         section="resumen"
-        description="Organiza tus contenidos, acompaña al grupo y revisa lo próximo."
+        description="Lo que necesita tu atención hoy en este curso."
       />
 
-      <section className="grid gap-4 sm:grid-cols-3" aria-label="Resumen del curso">
-        {[
-          { label: "Alumnos inscritos", value: course.enrolled, icon: UsersRound },
-          { label: "Módulos publicados", value: "3", icon: BookOpen },
-          { label: "Entregas por revisar", value: "8", icon: ClipboardCheck },
-        ].map(({ label, value, icon: Icon }) => (
-          <article key={label} className="rounded-2xl border border-[#e7e5e4] bg-white px-5 py-4">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-medium text-[#44403c]">{label}</p>
-              <Icon className="size-4 text-[#44403c]" aria-hidden="true" />
+      <section className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-2xl border border-[#e7e5e4] bg-white">
+          <div className="flex items-center justify-between border-b border-[#fafaf9] px-5 py-4">
+            <div>
+              <h2 className="text-sm font-semibold text-[#171717]">Entregas recientes por revisar</h2>
+              <p className="mt-1 text-xs text-[#78716c]">{totalSubmissions} entregas acumuladas en el curso</p>
             </div>
-            <p className="mt-3 text-2xl font-semibold text-[#171717]">{value}</p>
-          </article>
-        ))}
-      </section>
+            <ClipboardCheck className="size-5 text-[#44403c]" aria-hidden="true" />
+          </div>
+          <div className="divide-y divide-[#fafaf9]">
+            {pendingReviews.map((review) => (
+              <div key={`${review.student}-${review.sent}`} className="flex flex-wrap items-center gap-3 px-5 py-3.5">
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#fff7ed] text-[10px] font-bold text-[#ea580c]">
+                  {review.student.split(" ").map((n) => n[0]).join("")}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-xs font-semibold text-[#171717]">{review.student}</p>
+                  <p className="mt-0.5 truncate text-[11px] text-[#78716c]">{review.task} · {review.sent}</p>
+                </div>
+                <Link href={`/profesor/mis-cursos/${id}/tareas/1/entregas`} className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#ea580c] hover:text-[#c2410c]">
+                  Revisar <ArrowRight className="size-3.5" aria-hidden="true" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
 
-      <Card className="rounded-2xl border-[#e7e5e4]">
-        <CardHeader>
-          <CardTitle>Un vistazo a tu curso</CardTitle>
-          <p className="text-xs text-muted-foreground">
-            Mantén el contenido organizado y acompaña el progreso de tus alumnos.
-          </p>
-        </CardHeader>
-        <CardContent className="grid gap-3 sm:grid-cols-2">
-          {[
-            { title: "Contenido del curso", detail: "Organiza módulos, clases y videos guía.", href: `/profesor/mis-cursos/${id}/contenido`, icon: BookOpen },
-            { title: "Entregas pendientes", detail: "Revisa trabajos y comparte comentarios.", href: `/profesor/mis-cursos/${id}/tareas`, icon: ClipboardCheck },
-          ].map(({ title, detail, href, icon: Icon }) => (
-            <Link key={title} href={href} className="group flex items-center gap-3 rounded-xl border border-[#e7e5e4] p-4 transition hover:border-[#a8a29e] hover:bg-[#fff7ed]">
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#fff7ed] text-[#ea580c]"><Icon className="size-4" aria-hidden="true" /></span>
-              <span className="min-w-0 flex-1"><span className="block text-sm font-semibold text-[#171717]">{title}</span><span className="mt-1 block text-xs text-[#78716c]">{detail}</span></span>
-              <ArrowRight className="size-4 shrink-0 text-[#78716c] transition group-hover:translate-x-1 group-hover:text-[#ea580c]" aria-hidden="true" />
-            </Link>
-          ))}
-        </CardContent>
-      </Card>
+        <div className="space-y-4">
+          <div className="rounded-2xl border border-[#e7e5e4] bg-white">
+            <div className="flex items-center justify-between border-b border-[#fafaf9] px-5 py-4">
+              <div>
+                <h2 className="text-sm font-semibold text-[#171717]">Próximas fechas límite</h2>
+                <p className="mt-1 text-xs text-[#78716c]">Tareas activas del curso</p>
+              </div>
+              <CalendarClock className="size-5 text-[#44403c]" aria-hidden="true" />
+            </div>
+            <div className="divide-y divide-[#fafaf9]">
+              {nextDeadlines.map((task) => (
+                <Link key={task.id} href={`/profesor/mis-cursos/${id}/tareas/${task.id}`} className="flex items-center justify-between gap-3 px-5 py-3.5 transition hover:bg-[#fff7ed]">
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-semibold text-[#171717]">{task.title}</p>
+                    <p className="mt-0.5 text-[11px] text-[#78716c]">{task.type} · {task.submissions} entregas</p>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-[#fff7ed] px-2.5 py-1 text-[10px] font-semibold text-[#ea580c]">{task.deadline}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-[#e7e5e4] bg-white px-5 py-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <h2 className="text-sm font-semibold text-[#171717]">Estado del contenido</h2>
+                <p className="mt-1 text-xs text-[#78716c]">{modules.length} módulos · {modules.reduce((total, module) => total + module.lessons.length, 0)} clases · {course.enrolled} alumnos inscritos</p>
+              </div>
+              <Link href="/profesor/chat" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-[#e7e5e4] px-3 py-2 text-[11px] font-semibold text-[#ea580c] transition hover:bg-[#fff7ed]">
+                <MessageCircle className="size-3.5" aria-hidden="true" /> Avisar al curso
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

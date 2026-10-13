@@ -42,7 +42,7 @@ export default function ProfesorDashboard() {
           <div className="divide-y divide-[#fafaf9]">
             {[
               { title: "Fundamentos de Python", category: "Programación · 54 alumnos", activity: "8 entregas por revisar" },
-              { title: "Excel para negocios", category: "Productividad · 42 alumnos", activity: "4 preguntas en el foro" },
+              { title: "Excel para negocios", category: "Productividad · 42 alumnos", activity: "2 mensajes sin leer" },
               { title: "Diseño de interfaces", category: "Diseño · 32 alumnos", activity: "Próxima clase: Módulo 6" },
             ].map((course) => (
               <Link key={course.title} href="/profesor/mis-cursos" className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 hover:bg-[#fff7ed]">
@@ -59,7 +59,7 @@ export default function ProfesorDashboard() {
           <div className="mt-4 divide-y divide-[#fafaf9]">
             {[
               { label: "Revisar entregas y calificaciones", href: "/profesor/mis-cursos", icon: ClipboardCheck },
-              { label: "Publicar en el foro del curso", href: "/profesor/foro", icon: MessageCircle },
+              { label: "Enviar mensaje a un curso", href: "/profesor/chat", icon: MessageCircle },
               { label: "Gestionar semanas y clases", href: "/profesor/mis-cursos", icon: BookOpen },
             ].map(({ label, href, icon: Icon }) => (
               <Link key={label} href={href} className="group flex items-center justify-between gap-3 py-3 text-sm font-medium text-[#ea580c] hover:text-[#c2410c]">

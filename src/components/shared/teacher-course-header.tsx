@@ -8,8 +8,6 @@ const sections = [
   { id: "tareas", label: "Tareas", path: "/tareas" },
   { id: "evaluaciones", label: "Evaluaciones", path: "/quizzes" },
   { id: "alumnos", label: "Alumnos", path: "/alumnos" },
-  { id: "foro", label: "Foro", path: "/foro" },
-  { id: "mensajes", label: "Mensajes", path: "/chat" },
 ] as const;
 
 type Section = (typeof sections)[number]["id"];

@@ -2,11 +2,13 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import { CheckCircle2, Clapperboard, FileVideo2, Plus, Trash2, Upload } from "lucide-react";
+import { getDemoCourseContent } from "@/lib/demo-course-content";
 
 export function DemoTaskBuilder({ courseId }: { courseId: string }) {
+  const modules = getDemoCourseContent(courseId);
   const [saved, setSaved] = useState(false);
   const [guideName, setGuideName] = useState("");
-  const [savedDetails, setSavedDetails] = useState<{ title: string; type: string; deadline: string; duration: string } | null>(null);
+  const [savedDetails, setSavedDetails] = useState<{ title: string; type: string; deadline: string; duration: string; module: string } | null>(null);
   const [rubric, setRubric] = useState([{ id: 1, label: "Funcionamiento y casos límite", points: 10 }, { id: 2, label: "Claridad y organización", points: 6 }, { id: 3, label: "Pruebas y explicación", points: 4 }]);
 
   function selectGuide(event: ChangeEvent<HTMLInputElement>) {
@@ -21,11 +23,12 @@ export function DemoTaskBuilder({ courseId }: { courseId: string }) {
       type: String(data.get("taskType")),
       deadline: new Date(String(data.get("deadline"))).toLocaleString("es-PE", { dateStyle: "medium", timeStyle: "short" }),
       duration: String(data.get("duration")),
+      module: String(data.get("module")),
     });
     setSaved(true);
   }
 
-  if (saved) return <div className="rounded-2xl border border-[#fff7ed] bg-[#fff7ed] p-5"><CheckCircle2 className="size-5 text-[#ea580c]" aria-hidden="true" /><p className="mt-2 text-sm font-semibold text-[#ea580c]">Tarea creada en la demo</p><p className="mt-1 text-sm font-medium text-[#ea580c]">{savedDetails?.title} · {savedDetails?.type}</p><p className="mt-1 text-xs text-[#44403c]">Vence {savedDetails?.deadline} · duración estimada {savedDetails?.duration} min · curso #{courseId} · rúbrica de {rubric.reduce((total, criterion) => total + criterion.points, 0)} puntos.</p>{guideName && <p className="mt-2 flex items-center gap-2 text-xs text-[#ea580c]"><FileVideo2 className="size-4" aria-hidden="true" /> Guía adjunta: {guideName}</p>}<p className="mt-2 text-[10px] text-[#78716c]">Se trata de una vista previa; no se almacenaron datos ni archivos.</p></div>;
+  if (saved) return <div className="rounded-2xl border border-[#fff7ed] bg-[#fff7ed] p-5"><CheckCircle2 className="size-5 text-[#ea580c]" aria-hidden="true" /><p className="mt-2 text-sm font-semibold text-[#ea580c]">Tarea creada en la demo</p><p className="mt-1 text-sm font-medium text-[#ea580c]">{savedDetails?.title} · {savedDetails?.type}</p><p className="mt-1 text-xs text-[#44403c]">Módulo: {savedDetails?.module} · Vence {savedDetails?.deadline} · duración estimada {savedDetails?.duration} min · rúbrica de {rubric.reduce((total, criterion) => total + criterion.points, 0)} puntos.</p>{guideName && <p className="mt-2 flex items-center gap-2 text-xs text-[#ea580c]"><FileVideo2 className="size-4" aria-hidden="true" /> Guía adjunta: {guideName}</p>}<p className="mt-2 text-[10px] text-[#78716c]">Se trata de una vista previa; no se almacenaron datos ni archivos.</p></div>;
 
   return (
     <form onSubmit={submitTask} className="grid gap-5 xl:grid-cols-[1fr_320px]">
@@ -38,15 +41,17 @@ export function DemoTaskBuilder({ courseId }: { courseId: string }) {
             <label className="block text-xs font-semibold text-[#44403c]">Tipo de actividad<select name="taskType" className="mt-1.5 h-10 w-full rounded-lg border border-[#e7e5e4] bg-white px-3 text-xs font-normal"><option>Práctica entregable</option><option>Proyecto</option><option>Cuestionario</option><option>Trabajo grupal</option><option>Lectura guiada</option></select></label>
             <label className="block text-xs font-semibold text-[#44403c]">Modalidad<select name="modality" className="mt-1.5 h-10 w-full rounded-lg border border-[#e7e5e4] bg-white px-3 text-xs font-normal"><option>Individual</option><option>Grupal</option></select></label>
           </div>
+          <label className="block text-xs font-semibold text-[#44403c]">Módulo asignado<select name="module" required className="mt-1.5 h-10 w-full rounded-lg border border-[#e7e5e4] bg-white px-3 text-xs font-normal">{modules.map((module, index) => <option key={module.title} value={`Módulo ${index + 1} · ${module.title}`}>Módulo {index + 1} · {module.title}</option>)}</select></label>
           <div>
-            <p className="text-xs font-semibold text-[#44403c]">Video guía <span className="font-normal text-[#78716c]">· opcional</span></p>
+            <p className="text-xs font-semibold text-[#44403c]">Material de guía <span className="font-normal text-[#78716c]">· opcional</span></p>
             <label className="mt-1.5 flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-dashed border-[#e7e5e4] bg-[#fff7ed] px-3 py-2 text-xs text-[#ea580c] hover:bg-[#fff7ed]">
               <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-[#fff7ed]"><Upload className="size-4" aria-hidden="true" /></span>
-              <span className="min-w-0 flex-1 truncate font-medium">{guideName || "Selecciona un video de apoyo"}</span>
-              <span className="shrink-0 text-[10px] text-[#78716c]">MP4, MOV · máx. 50 MB</span>
-              <input type="file" accept="video/mp4,video/quicktime,video/webm" onChange={selectGuide} className="sr-only" aria-label="Adjuntar video guía" />
+              <span className="min-w-0 flex-1 truncate font-medium">{guideName || "Selecciona un video o PDF de apoyo"}</span>
+              <span className="shrink-0 text-[10px] text-[#78716c]">MP4, MOV, PDF · máx. 50 MB</span>
+              <input type="file" accept="video/mp4,video/quicktime,video/webm,application/pdf" onChange={selectGuide} className="sr-only" aria-label="Adjuntar material de guía" />
             </label>
             {guideName && <p className="mt-2 flex items-center gap-1.5 text-[10px] text-[#ea580c]"><Clapperboard className="size-3.5" aria-hidden="true" /> Vista previa local: el archivo no se subirá al servidor.</p>}
+            <label className="mt-3 block text-xs font-semibold text-[#44403c]">Guía en texto <span className="font-normal text-[#78716c]">· opcional</span><textarea name="textGuide" rows={3} placeholder="Escribe pasos, enlaces o indicaciones de apoyo para la tarea..." className="mt-1.5 w-full rounded-lg border border-[#e7e5e4] px-3 py-2 text-sm font-normal" /></label>
           </div>
         </section>
         <section className="space-y-3 border border-[#e7e5e4] bg-white p-5"><div className="flex items-center justify-between"><h2 className="text-sm font-semibold text-[#171717]">Rúbrica de evaluación</h2><button type="button" onClick={() => setRubric((current) => [...current, { id: Date.now(), label: "Nuevo criterio", points: 1 }])} className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#ea580c]"><Plus className="size-3.5" aria-hidden="true" />Añadir criterio</button></div>{rubric.map((criterion, index) => <div key={criterion.id} className="grid gap-2 sm:grid-cols-[1fr_100px_36px]"><input aria-label={`Criterio ${index + 1}`} value={criterion.label} onChange={(event) => setRubric((current) => current.map((item) => item.id === criterion.id ? { ...item, label: event.target.value } : item))} className="h-9 border border-[#e7e5e4] px-3 text-xs" /><label className="flex items-center gap-2 text-[10px] text-[#44403c]">Puntos<input aria-label={`Puntos criterio ${index + 1}`} type="number" min="1" value={criterion.points} onChange={(event) => setRubric((current) => current.map((item) => item.id === criterion.id ? { ...item, points: Number(event.target.value) } : item))} className="h-9 w-full border border-[#e7e5e4] px-2 text-xs text-[#ea580c]" /></label><button type="button" aria-label={`Eliminar criterio ${index + 1}`} disabled={rubric.length === 1} onClick={() => setRubric((current) => current.filter((item) => item.id !== criterion.id))} className="grid size-9 place-items-center text-[#78716c] hover:bg-[#fff4f2] hover:text-[#a14e43] disabled:opacity-40"><Trash2 className="size-4" aria-hidden="true" /></button></div>)}<p className="text-[10px] text-[#78716c]">Puntaje total: {rubric.reduce((total, criterion) => total + criterion.points, 0)} puntos · referencia de evaluación sobre 20.</p></section>

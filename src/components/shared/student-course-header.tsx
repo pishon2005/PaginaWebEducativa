@@ -6,8 +6,6 @@ const sections = [
   { id: "tareas", label: "Tareas", path: "/tareas" },
   { id: "evaluaciones", label: "Evaluaciones", path: "/quizzes" },
   { id: "notas", label: "Notas", path: "/notas" },
-  { id: "foro", label: "Foro", path: "/foro" },
-  { id: "chat", label: "Mensajes", path: "/chat" },
 ] as const;
 
 type Section = (typeof sections)[number]["id"];
