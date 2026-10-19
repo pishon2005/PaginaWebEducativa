@@ -7,6 +7,7 @@ const sections = [
   { id: "contenido", label: "Contenido", path: "/contenido" },
   { id: "tareas", label: "Tareas", path: "/tareas" },
   { id: "evaluaciones", label: "Evaluaciones", path: "/quizzes" },
+  { id: "asistencia", label: "Asistencia", path: "/asistencia" },
   { id: "alumnos", label: "Alumnos", path: "/alumnos" },
 ] as const;
 

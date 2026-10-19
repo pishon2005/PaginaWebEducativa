@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, ClipboardCheck, MessageCircle, Plus, Users } from "lucide-react";
+import { getAsistenciaClaseProfesor, getClasesConModalidad } from "@/lib/asistencia/demo-asistencia";
+import { AttendanceSummary } from "@/components/asistencia/attendance-summary";
 
 export default function ProfesorDashboard() {
+  // Profesor demo: Ana María Campos (id: "3"), Curso: Fundamentos de Python (id: "1")
+  const cursoId = "1";
+  const clases = getClasesConModalidad(cursoId);
+  const claseReciente = clases.find((c) => c.publicado) ?? clases[0];
+  const asistenciaData = claseReciente ? getAsistenciaClaseProfesor(cursoId, claseReciente.id) : null;
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-3xl border border-[#fff7ed] bg-[linear-gradient(115deg,#fff7ed_0%,#fafaf9_62%,#fff7ed_100%)] p-6 sm:p-8">
@@ -70,6 +77,53 @@ export default function ProfesorDashboard() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
+
+              {/* Resumen de asistencia para la próxima clase */}
+              {asistenciaData && (
+                <section className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-base font-semibold text-[#171717]">Próxima clase: {asistenciaData.clase.titulo}</h2>
+                      <p className="mt-1 text-xs text-[#78716c]">Semana {asistenciaData.clase.semanaNumero} · Clase {asistenciaData.clase.numero} · {asistenciaData.clase.modalidad === "hibrida" ? "Híbrida" : asistenciaData.clase.modalidad}</p>
+                    </div>
+                    <Link
+                      href={`/profesor/mis-cursos/${cursoId}/asistencia?claseId=${asistenciaData.clase.id}`}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-[#f97316] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#ea580c]"
+                    >
+                      Tomar lista
+                      <ArrowRight className="size-3.5" aria-hidden="true" />
+                    </Link>
+                  </div>
+                  <AttendanceSummary
+                    data={{
+                      cursoId,
+                      cursoTitulo: asistenciaData.clase.titulo,
+                      resumen: {
+                        totalClases: 1,
+                        asistidas: asistenciaData.presentes,
+                        ausentes: asistenciaData.ausentes,
+                        porcentajeAsistencia: asistenciaData.totalInscritos > 0
+                          ? Math.round(((asistenciaData.presentes + asistenciaData.tardanzas + asistenciaData.justificados) / asistenciaData.totalInscritos) * 100)
+                          : 0,
+                      },
+                      clases: [{
+                        claseId: asistenciaData.clase.id,
+                        claseNumero: asistenciaData.clase.numero,
+                        claseTitulo: asistenciaData.clase.titulo,
+                        fechaClase: null,
+                        modalidadClase: asistenciaData.clase.modalidad,
+                        ubicacionPresencial: asistenciaData.clase.ubicacionPresencial,
+                        modalidadElegida: null,
+                        puedeCambiarModalidad: false,
+                        horasRestantesEleccion: null,
+                        asistencia: null,
+                      }],
+                    }}
+                    cursoId={cursoId}
+                    maxItems={1}
+                  />
+                </section>
+              )}
+            </div>
+          );
+        }

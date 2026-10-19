@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { getDemoCourse } from "@/lib/demo-courses";
 
 const sections = [
   { id: "informacion", label: "Información", path: "" },
   { id: "contenido", label: "Contenido", path: "/semanas" },
   { id: "alumnos", label: "Alumnos", path: "/alumnos" },
+  { id: "asistencia", label: "Asistencia", path: "/asistencia" },
 ] as const;
 
 type Section = (typeof sections)[number]["id"];
@@ -13,12 +15,14 @@ interface AdminCourseHeaderProps {
   courseId: string;
   section: Section;
   description: string;
+  action?: ReactNode;
 }
 
 export function AdminCourseHeader({
   courseId,
   section,
   description,
+  action,
 }: AdminCourseHeaderProps) {
   const course = getDemoCourse(courseId);
 
@@ -31,16 +35,21 @@ export function AdminCourseHeader({
         <span aria-hidden="true">←</span> Cursos
       </Link>
       <div className="mt-4 rounded-2xl border border-[#fff7ed] bg-[linear-gradient(110deg,#fff7ed,#fafaf9)] px-5 py-5 sm:px-7 sm:py-6">
-        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#44403c]">
-          {course.subject} · {course.level} · Administración
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#171717] sm:text-3xl">
-          {course.title}
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-[#44403c]">
-          {description}
-        </p>
-      </div>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#44403c]">
+                    {course.subject} · {course.level} · Administración
+                  </p>
+                  <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#171717] sm:text-3xl">
+                    {course.title}
+                  </h1>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-[#44403c]">
+                    {description}
+                  </p>
+                </div>
+                {action && <div className="shrink-0">{action}</div>}
+              </div>
+            </div>
       <nav
         aria-label="Administración del curso"
         className="mt-4 flex flex-wrap gap-x-1 border-b border-[#e7e5e4] pb-1"

@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, CalendarDays, CheckCircle2, Clock3 } from "lucide-react";
 import { getDemoCourse } from "@/lib/demo-courses";
+import { getAsistenciaAlumnoCurso } from "@/lib/asistencia/demo-asistencia";
+import { AttendanceSummary } from "@/components/asistencia/attendance-summary";
 
 export default function AlumnoDashboard() {
+  // Alumno demo: Valeria Rojas (id: "4")
+  const alumnoId = "4";
+  const cursoId = "1"; // Fundamentos de Python
+  const asistenciaData = getAsistenciaAlumnoCurso(alumnoId, cursoId);
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-3xl border border-[#fff7ed] bg-[linear-gradient(115deg,#fff7ed_0%,#fafaf9_62%,#fff7ed_100%)] p-6 sm:p-8">
@@ -75,7 +81,10 @@ export default function AlumnoDashboard() {
             <Link href="/alumno/calendario" className="inline-flex items-center gap-1 pt-1 text-xs font-semibold text-[#ea580c] hover:text-[#f97316]">Abrir calendario <CalendarDays className="size-3.5" aria-hidden="true" /></Link>
           </div>
         </div>
-      </section>
-    </div>
-  );
-}
+
+                {/* Resumen de asistencia */}
+                <AttendanceSummary data={asistenciaData} cursoId={cursoId} maxItems={3} />
+              </section>
+            </div>
+          );
+        }
