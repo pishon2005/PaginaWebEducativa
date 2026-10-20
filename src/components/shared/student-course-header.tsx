@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { getDemoCourse } from "@/lib/demo-courses";
 
 const sections = [
@@ -15,12 +16,14 @@ interface StudentCourseHeaderProps {
   courseId: string;
   section: Section;
   description: string;
+  action?: ReactNode;
 }
 
 export function StudentCourseHeader({
   courseId,
   section,
   description,
+  action,
 }: StudentCourseHeaderProps) {
   const course = getDemoCourse(courseId);
 
@@ -45,11 +48,12 @@ export function StudentCourseHeader({
               {description}
             </p>
           </div>
-          <p className="rounded-full border border-white/90 bg-white/80 px-3 py-1.5 text-xs font-medium text-[#ea580c]">
-            {course.instructor}
-          </p>
-        </div>
-      </div>
+                {action && <div className="shrink-0">{action}</div>}
+                <p className="rounded-full border border-white/90 bg-white/80 px-3 py-1.5 text-xs font-medium text-[#ea580c]">
+                  {course.instructor}
+                </p>
+              </div>
+            </div>
       <nav
         aria-label="Secciones del curso"
         className="mt-4 flex flex-wrap gap-x-1 border-b border-[#e7e5e4] pb-1"

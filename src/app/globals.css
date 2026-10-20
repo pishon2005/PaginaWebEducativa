@@ -145,3 +145,86 @@
     @apply font-sans;
   }
 }
+
+/* Animaciones para el carrusel Hero */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.7s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.7s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.7s ease-out forwards;
+}
+
+/* Transiciones suaves para el carrusel */
+.transition-opacity {
+  transition: opacity 0.7s ease-in-out;
+}
+
+/* Estilos para los indicadores del carrusel */
+.carousel-indicator {
+  @apply relative w-2.5 h-2.5 rounded-full transition-all duration-300;
+}
+
+.carousel-indicator.active {
+  @apply bg-orange-500 w-6;
+}
+
+.carousel-indicator.inactive {
+  @apply bg-neutral-300/50 hover:bg-neutral-300;
+}
+
+/* Botones de navegación del carrusel */
+.carousel-nav-btn {
+  @apply rounded-full bg-neutral-950/75 p-2 text-neutral-100 shadow-lg shadow-black/20 backdrop-blur-sm transition hover:bg-neutral-950/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white;
+}
+
+/* Pausar animaciones cuando el usuario prefiere movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-in-right,
+  .animate-slide-in-left,
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .transition-opacity,
+  .transition-all {
+    transition: none;
+  }
+}

@@ -4,11 +4,11 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Calendar, CheckCircle2, XCircle, Clock, ShieldCheck, Users, Monitor, AlertTriangle, ArrowRight } from "lucide-react";
 import React from "react";
-import type { AsistenciaAlumnoCurso, EstadoAsistencia } from "@/lib/asistencia/tipos";
+import type { AsistenciaAlumnoSeccion, EstadoAsistencia, ModalidadClase, ModalidadAsistencia } from "@/lib/asistencia/tipos";
 import { ESTADO_ASISTENCIA_LABELS, ESTADO_ASISTENCIA_COLORES, MODALIDAD_LABELS, MODALIDAD_ASISTENCIA_LABELS } from "@/lib/asistencia/tipos";
 
 interface AttendanceSummaryProps {
-  data: AsistenciaAlumnoCurso;
+  data: AsistenciaAlumnoSeccion;
   cursoId: string;
   maxItems?: number;
 }
@@ -32,13 +32,13 @@ export function AttendanceSummary({ data, cursoId, maxItems = 3 }: AttendanceSum
   const hayMas = vista === "proximas" ? proximasClases.length > maxItems : recientesClases.length > maxItems;
 
   const getIconoEstado = (estado: EstadoAsistencia) => {
-      switch (estado) {
-        case "presente": return CheckCircle2;
-        case "ausente": return XCircle;
-        case "tardanza": return Clock;
-        case "justificado": return ShieldCheck;
-      }
-    };
+        switch (estado) {
+          case "presente": return CheckCircle2;
+          case "ausente": return XCircle;
+          case "tardanza": return Clock;
+          case "justificado": return ShieldCheck;
+        }
+      };
 
   return (
     <div className="space-y-4">
@@ -139,12 +139,12 @@ export function AttendanceSummary({ data, cursoId, maxItems = 3 }: AttendanceSum
                         {clase.modalidadClase === "virtual" && <Monitor className="size-3" aria-hidden="true" />}
                         {clase.modalidadClase === "presencial" && <Users className="size-3" aria-hidden="true" />}
                         {clase.modalidadClase === "hibrida" && <Users className="size-3" aria-hidden="true" />}
-                        {MODALIDAD_LABELS[clase.modalidadClase]}
+                                                {MODALIDAD_LABELS[clase.modalidadClase as ModalidadClase]}
                       </span>
                       {clase.modalidadElegida && (
                         <span className="inline-flex items-center gap-1 rounded-full bg-[#fafaf9] px-2 py-0.5 text-[10px] font-medium text-[#44403c]">
                           {clase.modalidadElegida === "virtual" ? <Monitor className="size-3" aria-hidden="true" /> : <Users className="size-3" aria-hidden="true" />}
-                          {MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida]}
+                                                    {MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida as ModalidadAsistencia]}
                         </span>
                       )}
                     </p>
@@ -152,9 +152,9 @@ export function AttendanceSummary({ data, cursoId, maxItems = 3 }: AttendanceSum
 
                   <div className="flex items-center gap-2 shrink-0">
                     {tieneAsistencia && estado ? (
-                                          <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ESTADO_ASISTENCIA_COLORES[estado]}`}>
+                                          <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ESTADO_ASISTENCIA_COLORES[estado as EstadoAsistencia]}`}>
                                             {React.createElement(getIconoEstado(estado), { className: "size-3.5", "aria-hidden": "true" })}
-                                            {ESTADO_ASISTENCIA_LABELS[estado]}
+                                            {ESTADO_ASISTENCIA_LABELS[estado as EstadoAsistencia]}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fafaf9] px-3 py-1 text-xs font-medium text-[#a8a29e]">

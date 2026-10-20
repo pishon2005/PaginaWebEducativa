@@ -7,9 +7,65 @@ export type ModalidadClase = "virtual" | "presencial" | "hibrida";
 export type ModalidadAsistencia = "virtual" | "presencial";
 export type EstadoAsistencia = "presente" | "ausente" | "tardanza" | "justificado";
 export type MetodoRegistroAsistencia = "manual" | "qr" | "self" | "importado";
+export type EstadoSeccion = "borrador" | "activa" | "finalizada" | "cancelada";
+
+// ============================================================================
+// TIPOS BASE (Curso, Sección, Semana, Clase)
+// ============================================================================
+
+export interface CursoBase {
+  id: string;
+  slug: string;
+  titulo: string;
+  descripcionCorta: string | null;
+  descripcionLarga: string | null;
+  imagenPortada: string | null;
+  precio: number;
+  moneda: string;
+  duracionHoras: number | null;
+  nivel: string;
+  profesorBaseId: string | null;
+  certificadoActivo: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface Seccion {
+  id: string;
+  cursoId: string;
+  codigo: string;
+  modalidad: ModalidadClase;
+  profesorId: string;
+  capacidad: number | null;
+  horario: string | null;
+  ubicacion: string | null;
+  fechaInicio: Date | null;
+  fechaFin: Date | null;
+  estado: EstadoSeccion;
+  permitirEleccionModalidad: boolean;
+  horasLimiteEleccion: number;
+  requerirJustificacion: boolean;
+  permitirAutoRegistro: boolean;
+  ventanaAutoRegistroMinutos: number;
+  createdAt: Date;
+  updatedAt: Date;
+  // Relaciones
+  curso?: CursoBase;
+  profesor?: { id: string; nombre: string; apellido: string; email: string };
+}
+
+export interface Semana {
+  id: string;
+  seccionId: string;
+  numero: number;
+  titulo: string;
+  descripcion: string | null;
+  createdAt: Date;
+}
 
 export interface ClaseConAsistencia {
   id: string;
+  semanaId: string;
   numero: number;
   titulo: string;
   descripcion: string | null;
@@ -18,10 +74,13 @@ export interface ClaseConAsistencia {
   modalidad: ModalidadClase;
   ubicacionPresencial: string | null;
   capacidadPresencial: number | null;
+  fechaProgramada: Date | null;
   publicado: boolean;
-  semanaId: string;
-  semanaNumero: number;
-  semanaTitulo: string;
+  createdAt: Date;
+  updatedAt: Date;
+  // Relaciones
+  semana?: Semana & { numero: number };
+  seccion?: Seccion;
 }
 
 export interface PreferenciaModalidad {
@@ -59,7 +118,7 @@ export interface Asistencia {
 
 export interface ConfiguracionAsistencia {
   id: string;
-  cursoId: string;
+  seccionId: string;
   permitirEleccionModalidad: boolean;
   horasLimiteEleccion: number;
   requerirJustificacion: boolean;
@@ -69,9 +128,14 @@ export interface ConfiguracionAsistencia {
   updatedAt: Date;
 }
 
+// ============================================================================
+// TIPOS PARA VISTAS CONSOLIDADAS
+// ============================================================================
+
 // Para el profesor: vista consolidada de asistencia por clase
 export interface AsistenciaClaseProfesor {
   clase: ClaseConAsistencia;
+  seccion: Seccion;
   totalInscritos: number;
   presentes: number;
   ausentes: number;
@@ -96,10 +160,12 @@ export interface AsistenciaAlumnoDetalle {
   puedeRegistrar: boolean; // Si está dentro de la ventana de auto-registro
 }
 
-// Para el alumno: su estado de asistencia en un curso
-export interface AsistenciaAlumnoCurso {
-  cursoId: string;
+// Para el alumno: su estado de asistencia en una sección
+export interface AsistenciaAlumnoSeccion {
+  seccionId: string;
+  seccionCodigo: string;
   cursoTitulo: string;
+  modalidadSeccion: ModalidadClase;
   clases: AsistenciaClaseAlumno[];
   resumen: {
     totalClases: number;
@@ -113,7 +179,7 @@ export interface AsistenciaClaseAlumno {
   claseId: string;
   claseNumero: number;
   claseTitulo: string;
-  fechaClase: Date | null; // Se puede calcular desde semana/clase
+  fechaClase: Date | null;
   modalidadClase: ModalidadClase;
   ubicacionPresencial: string | null;
   modalidadElegida: ModalidadAsistencia | null;
@@ -146,8 +212,8 @@ export interface FormularioEleccionModalidad {
 }
 
 // Estadísticas
-export interface EstadisticasAsistenciaCurso {
-  cursoId: string;
+export interface EstadisticasAsistenciaSeccion {
+  seccionId: string;
   totalClases: number;
   totalAlumnos: number;
   promedioAsistencia: number;
@@ -187,6 +253,13 @@ export const MODALIDAD_LABELS: Record<ModalidadClase, string> = {
 export const MODALIDAD_ASISTENCIA_LABELS: Record<ModalidadAsistencia, string> = {
   virtual: "Virtual",
   presencial: "Presencial",
+};
+
+export const ESTADO_SECCION_LABELS: Record<EstadoSeccion, string> = {
+  borrador: "Borrador",
+  activa: "Activa",
+  finalizada: "Finalizada",
+  cancelada: "Cancelada",
 };
 
 export const ESTADO_ASISTENCIA_LABELS: Record<EstadoAsistencia, string> = {

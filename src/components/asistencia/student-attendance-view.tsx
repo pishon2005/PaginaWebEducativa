@@ -3,13 +3,13 @@
 import { useState, useMemo } from "react";
 import { Calendar, CheckCircle2, XCircle, Clock, ShieldCheck, Monitor, Users, AlertTriangle, Filter } from "lucide-react";
 import React from "react";
-import type { AsistenciaAlumnoCurso, EstadoAsistencia, ModalidadAsistencia, ModalidadClase, Asistencia } from "@/lib/asistencia/tipos";
+import type { AsistenciaAlumnoSeccion, EstadoAsistencia, ModalidadAsistencia, ModalidadClase, Asistencia } from "@/lib/asistencia/tipos";
 import { MODALIDAD_LABELS, MODALIDAD_ASISTENCIA_LABELS, ESTADO_ASISTENCIA_LABELS, ESTADO_ASISTENCIA_COLORES } from "@/lib/asistencia/tipos";
 
 const ESTADOS: readonly EstadoAsistencia[] = ["presente", "ausente", "tardanza", "justificado"] as const;
 
 interface StudentAttendanceViewProps {
-  data: AsistenciaAlumnoCurso;
+  data: AsistenciaAlumnoSeccion;
   onCambiarModalidad?: (claseId: string, modalidad: ModalidadAsistencia) => Promise<void>;
   configuracion?: {
     permitirEleccionModalidad: boolean;
@@ -115,11 +115,11 @@ export function StudentAttendanceView({
                     {clase.modalidadClase === "virtual" && <Monitor className="size-3" aria-hidden="true" />}
                     {clase.modalidadClase === "presencial" && <Users className="size-3" aria-hidden="true" />}
                     {clase.modalidadClase === "hibrida" && <Users className="size-3" aria-hidden="true" />}
-                    {MODALIDAD_LABELS[clase.modalidadClase]}
+                    {MODALIDAD_LABELS[clase.modalidadClase as "virtual" | "presencial" | "hibrida"]}
                   </span>
                   {clase.modalidadElegida && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-[#fafaf9] px-2 py-0.5 text-[10px] font-medium text-[#44403c]">
-                      Tu elección: {MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida]}
+                      Tu elección: {MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida as "virtual" | "presencial"]}
                     </span>
                   )}
                 </button>
@@ -228,7 +228,7 @@ export function StudentAttendanceView({
                           {clase.modalidadClase === "virtual" && <Monitor className="size-3" aria-hidden="true" />}
                           {clase.modalidadClase === "presencial" && <Users className="size-3" aria-hidden="true" />}
                           {clase.modalidadClase === "hibrida" && <Users className="size-3" aria-hidden="true" />}
-                          {MODALIDAD_LABELS[clase.modalidadClase]}
+                                                    {MODALIDAD_LABELS[clase.modalidadClase as "virtual" | "presencial" | "hibrida"]}
                         </span>
                         {clase.ubicacionPresencial && (
                           <span className="flex items-center gap-1">
@@ -241,9 +241,9 @@ export function StudentAttendanceView({
 
                     <div className="flex items-center gap-2 shrink-0">
                       {tieneAsistencia && estado && (
-                        <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ESTADO_ASISTENCIA_COLORES[estado]}`}>
+                        <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ESTADO_ASISTENCIA_COLORES[estado as EstadoAsistencia]}`}>
                           {React.createElement(getIconoEstado(estado), { className: "size-3.5", "aria-hidden": "true" })}
-                          {ESTADO_ASISTENCIA_LABELS[estado]}
+                          {ESTADO_ASISTENCIA_LABELS[estado as EstadoAsistencia]}
                         </span>
                       )}
                       {!tieneAsistencia && (
@@ -256,7 +256,7 @@ export function StudentAttendanceView({
                       {clase.modalidadElegida && (
                         <span className="hidden inline-flex items-center gap-1 rounded-full bg-[#fafaf9] px-2.5 py-1 text-[10px] font-medium text-[#44403c] sm:inline-flex">
                           {clase.modalidadElegida === "virtual" ? <Monitor className="size-3" aria-hidden="true" /> : <Users className="size-3" aria-hidden="true" />}
-                          {MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida]}
+                          {MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida as "virtual" | "presencial"]}
                         </span>
                       )}
 
@@ -271,14 +271,14 @@ export function StudentAttendanceView({
                       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         <div className="space-y-1">
                           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#78716c]">Modalidad de la clase</p>
-                          <p className="text-sm text-[#171717]">{MODALIDAD_LABELS[clase.modalidadClase]}</p>
+                          <p className="text-sm text-[#171717]">{MODALIDAD_LABELS[clase.modalidadClase as "virtual" | "presencial" | "hibrida"]}</p>
                         </div>
 
                         <div className="space-y-1">
                           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#78716c]">Tu elección</p>
                           <p className="text-sm text-[#171717]">
                             {clase.modalidadElegida
-                              ? MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida]
+                                                        ? MODALIDAD_ASISTENCIA_LABELS[clase.modalidadElegida as "virtual" | "presencial"]
                               : <span className="text-[#a8a29e]">No elegida</span>}
                           </p>
                         </div>
@@ -287,12 +287,12 @@ export function StudentAttendanceView({
                           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#78716c]">Tu asistencia</p>
                           {tieneAsistencia && estado ? (
                             <div className="flex items-center gap-2">
-                              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ESTADO_ASISTENCIA_COLORES[estado]}`}>
+                              <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${ESTADO_ASISTENCIA_COLORES[estado as EstadoAsistencia]}`}>
                                 {React.createElement(getIconoEstado(estado), { className: "size-3.5", "aria-hidden": "true" })}
-                                {ESTADO_ASISTENCIA_LABELS[estado]}
+                                {ESTADO_ASISTENCIA_LABELS[estado as EstadoAsistencia]}
                               </span>
                               <span className="text-xs text-[#78716c]">
-                                {modalidadAsistencia && `(${MODALIDAD_ASISTENCIA_LABELS[modalidadAsistencia]})`}
+                                {modalidadAsistencia && `(${MODALIDAD_ASISTENCIA_LABELS[modalidadAsistencia as "virtual" | "presencial"]})`}
                               </span>
                             </div>
                           ) : (

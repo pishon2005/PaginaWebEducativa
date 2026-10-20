@@ -199,7 +199,7 @@ export function AttendanceManager({
             <h2 className="text-lg font-semibold text-[#171717]">Tomar lista: {data.clase.titulo}</h2>
             <p className="mt-1 text-xs text-[#78716c]">
               {data.clase.modalidad === "hibrida" && "Clase híbrida · "}
-              Semana {data.clase.semanaNumero} · Clase {data.clase.numero} ·{" "}
+              Semana {data.clase.semana?.numero ?? "?"} · Clase {data.clase.numero} ·{" "}
               {data.clase.duracionMinutos ? `${data.clase.duracionMinutos} min` : "Sin duración"}
             </p>
             {data.clase.ubicacionPresencial && (

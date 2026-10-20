@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, ClipboardCheck, MessageCircle, Plus, Users } from "lucide-react";
-import { getAsistenciaClaseProfesor, getClasesConModalidad } from "@/lib/asistencia/demo-asistencia";
+import { getAsistenciaClaseProfesor, getSeccionesByCurso, getSeccion, getClasesBySeccion } from "@/lib/asistencia/demo-asistencia";
 import { AttendanceSummary } from "@/components/asistencia/attendance-summary";
 
 export default function ProfesorDashboard() {
   // Profesor demo: Ana María Campos (id: "3"), Curso: Fundamentos de Python (id: "1")
   const cursoId = "1";
-  const clases = getClasesConModalidad(cursoId);
+  const secciones = getSeccionesByCurso(cursoId);
+  const seccionActiva = secciones.find((s) => s.estado === "activa") ?? secciones[0];
+  const seccion = seccionActiva ? getSeccion(seccionActiva.id) : null;
+  const clases = seccion ? getClasesBySeccion(seccion.id) : [];
   const claseReciente = clases.find((c) => c.publicado) ?? clases[0];
-  const asistenciaData = claseReciente ? getAsistenciaClaseProfesor(cursoId, claseReciente.id) : null;
+  const asistenciaData = seccion && claseReciente ? getAsistenciaClaseProfesor(seccion.id, claseReciente.id) : null;
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-3xl border border-[#fff7ed] bg-[linear-gradient(115deg,#fff7ed_0%,#fafaf9_62%,#fff7ed_100%)] p-6 sm:p-8">
@@ -79,15 +82,15 @@ export default function ProfesorDashboard() {
       </section>
 
               {/* Resumen de asistencia para la próxima clase */}
-              {asistenciaData && (
+              {asistenciaData && seccion && (
                 <section className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <h2 className="text-base font-semibold text-[#171717]">Próxima clase: {asistenciaData.clase.titulo}</h2>
-                      <p className="mt-1 text-xs text-[#78716c]">Semana {asistenciaData.clase.semanaNumero} · Clase {asistenciaData.clase.numero} · {asistenciaData.clase.modalidad === "hibrida" ? "Híbrida" : asistenciaData.clase.modalidad}</p>
+                                    <p className="mt-1 text-xs text-[#78716c]">Sección: {seccion.codigo} · Semana {asistenciaData.clase.semana?.numero ?? "?"} · Clase {asistenciaData.clase.numero} · {asistenciaData.clase.modalidad === "hibrida" ? "Híbrida" : asistenciaData.clase.modalidad}</p>
                     </div>
                     <Link
-                      href={`/profesor/mis-cursos/${cursoId}/asistencia?claseId=${asistenciaData.clase.id}`}
+                                    href={`/profesor/mis-cursos/${cursoId}/asistencia?seccionId=${seccion.id}&claseId=${asistenciaData.clase.id}`}
                       className="inline-flex items-center gap-1.5 rounded-lg bg-[#f97316] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#ea580c]"
                     >
                       Tomar lista
@@ -96,34 +99,36 @@ export default function ProfesorDashboard() {
                   </div>
                   <AttendanceSummary
                     data={{
-                      cursoId,
-                      cursoTitulo: asistenciaData.clase.titulo,
-                      resumen: {
-                        totalClases: 1,
-                        asistidas: asistenciaData.presentes,
-                        ausentes: asistenciaData.ausentes,
-                        porcentajeAsistencia: asistenciaData.totalInscritos > 0
-                          ? Math.round(((asistenciaData.presentes + asistenciaData.tardanzas + asistenciaData.justificados) / asistenciaData.totalInscritos) * 100)
-                          : 0,
-                      },
-                      clases: [{
-                        claseId: asistenciaData.clase.id,
-                        claseNumero: asistenciaData.clase.numero,
-                        claseTitulo: asistenciaData.clase.titulo,
-                        fechaClase: null,
-                        modalidadClase: asistenciaData.clase.modalidad,
-                        ubicacionPresencial: asistenciaData.clase.ubicacionPresencial,
-                        modalidadElegida: null,
-                        puedeCambiarModalidad: false,
-                        horasRestantesEleccion: null,
-                        asistencia: null,
-                      }],
-                    }}
-                    cursoId={cursoId}
-                    maxItems={1}
-                  />
-                </section>
-              )}
+                                    seccionId: seccion.id,
+                                    seccionCodigo: seccion.codigo,
+                                    cursoTitulo: asistenciaData.clase.titulo,
+                                    modalidadSeccion: seccion.modalidad,
+                                    resumen: {
+                                      totalClases: 1,
+                                      asistidas: asistenciaData.presentes,
+                                      ausentes: asistenciaData.ausentes,
+                                      porcentajeAsistencia: asistenciaData.totalInscritos > 0
+                                        ? Math.round(((asistenciaData.presentes + asistenciaData.tardanzas + asistenciaData.justificados) / asistenciaData.totalInscritos) * 100)
+                                        : 0,
+                                    },
+                                    clases: [{
+                                      claseId: asistenciaData.clase.id,
+                                      claseNumero: asistenciaData.clase.numero,
+                                      claseTitulo: asistenciaData.clase.titulo,
+                                      fechaClase: null,
+                                      modalidadClase: asistenciaData.clase.modalidad,
+                                      ubicacionPresencial: asistenciaData.clase.ubicacionPresencial,
+                                      modalidadElegida: null,
+                                      puedeCambiarModalidad: false,
+                                      horasRestantesEleccion: null,
+                                      asistencia: null,
+                                    }],
+                                  }}
+                                  cursoId={cursoId}
+                                  maxItems={1}
+                                />
+                              </section>
+                            )}
             </div>
           );
         }
