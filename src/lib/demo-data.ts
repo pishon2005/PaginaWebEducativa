@@ -19,6 +19,7 @@ export interface DemoCourseInfo {
   enrolled: number;
   progress: number;
   modality: string;
+  modalidadCurso: "nivelacion" | "taller" | "libre" | "aplicativo";
   icon: string;
   artwork: string;
   mark: string;
@@ -32,6 +33,7 @@ export const demoCoursesList: DemoCourseInfo[] = [
     instructor: "Ana María Campos", subject: "Programación", category: "PROGRAMACIÓN",
     level: "Inicial", duration: "24 horas", hours: 24, classes: "9 clases",
     price: 189, students: "1,240", enrolled: 54, progress: 65, modality: "Virtual",
+    modalidadCurso: "nivelacion",
     icon: "/img/python.webp", artwork: "from-sky-950 via-blue-900 to-orange-600", mark: "PY",
     description: "Aprende a programar con proyectos guiados desde cero.",
     published: true,
@@ -41,6 +43,7 @@ export const demoCoursesList: DemoCourseInfo[] = [
     instructor: "Ana María Campos", subject: "Tecnología", category: "DESARROLLO WEB",
     level: "Intermedio", duration: "32 horas", hours: 32, classes: "9 clases",
     price: 229, students: "860", enrolled: 42, progress: 30, modality: "Virtual",
+    modalidadCurso: "aplicativo",
     icon: "/img/procesador.webp", artwork: "from-neutral-950 via-indigo-950 to-orange-700", mark: "RE",
     description: "Diseña interfaces y crea aplicaciones web modernas.",
     published: true,
@@ -50,6 +53,7 @@ export const demoCoursesList: DemoCourseInfo[] = [
     instructor: "Mariana Torres", subject: "Productividad", category: "PRODUCTIVIDAD",
     level: "Inicial", duration: "18 horas", hours: 18, classes: "9 clases",
     price: 149, students: "740", enrolled: 38, progress: 42, modality: "Virtual",
+    modalidadCurso: "taller",
     icon: "/img/icono_crecimiento.webp", artwork: "from-neutral-950 via-emerald-950 to-yellow-600", mark: "XL",
     description: "Organiza datos, automatiza tareas y crea reportes claros.",
     published: true,
@@ -59,6 +63,7 @@ export const demoCoursesList: DemoCourseInfo[] = [
     instructor: "Mariana Torres", subject: "Tecnología", category: "CIENCIA DE DATOS",
     level: "Intermedio", duration: "36 horas", hours: 36, classes: "9 clases",
     price: 249, students: "520", enrolled: 0, progress: 0, modality: "Virtual",
+    modalidadCurso: "aplicativo",
     icon: "/img/icono_crecimiento.webp", artwork: "from-slate-950 via-teal-950 to-yellow-600", mark: "DS",
     description: "Interpreta datos y presenta hallazgos accionables.",
     published: false,
@@ -68,6 +73,7 @@ export const demoCoursesList: DemoCourseInfo[] = [
     instructor: "Luis Herrera", subject: "Diseño", category: "DISEÑO DIGITAL",
     level: "Inicial", duration: "20 horas", hours: 20, classes: "9 clases",
     price: 179, students: "630", enrolled: 32, progress: 84, modality: "Virtual",
+    modalidadCurso: "libre",
     icon: "/img/icono_laptop.webp", artwork: "from-neutral-950 via-rose-950 to-orange-600", mark: "UX",
     description: "Construye experiencias accesibles y sistemas visuales.",
     published: true,
@@ -77,6 +83,7 @@ export const demoCoursesList: DemoCourseInfo[] = [
     instructor: "Luis Herrera", subject: "Datos", category: "BASES DE DATOS",
     level: "Avanzado", duration: "42 horas", hours: 42, classes: "9 clases",
     price: 269, students: "390", enrolled: 25, progress: 0, modality: "Virtual",
+    modalidadCurso: "aplicativo",
     icon: "/img/procesador.webp", artwork: "from-neutral-950 via-neutral-800 to-orange-600", mark: "SQL",
     description: "Consulta, modela y administra datos relacionales.",
     published: true,
@@ -91,6 +98,7 @@ const fallbackCourse: DemoCourseInfo = {
   instructor: "Equipo docente", subject: "Aprendizaje", category: "GENERAL",
   level: "Inicial", duration: "24 horas", hours: 24, classes: "9 clases",
   price: 199, students: "320", enrolled: 0, progress: 0, modality: "Virtual",
+  modalidadCurso: "libre",
   icon: "/img/logo.webp", artwork: "from-neutral-950 via-neutral-800 to-orange-600", mark: "ED",
   description: "Aprende con lecciones prácticas, ejercicios guiados y acompañamiento docente.",
   published: false,

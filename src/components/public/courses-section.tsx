@@ -1,43 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Monitor, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-const courses = [
+const modalidades = [
   {
-    slug: "curso-1",
-    title: "Fundamentos de Python",
-    classes: "9 clases",
-    modality: "Virtual",
-    label: "PROGRAMACIÓN",
-    icon: "/img/python.webp",
-    artwork: "from-sky-950 via-blue-800 to-orange-500",
+    key: "nivelacion",
+    title: "Curso de nivelación",
+    label: "NIVELACIÓN",
+    description: "Para empezar desde cero con bases sólidas",
+    icon: "/img/libro.webp",
+    artwork: "from-emerald-950 via-teal-900 to-green-500",
   },
   {
-    slug: "curso-2",
-    title: "Desarrollo web con React",
-    classes: "9 clases",
-    modality: "Virtual",
-    label: "DESARROLLO WEB",
-    icon: "/img/procesador.webp",
-    artwork: "from-neutral-950 via-indigo-950 to-orange-600",
+    key: "taller",
+    title: "Curso de taller",
+    label: "TALLER",
+    description: "Práctico, presencial y guiado paso a paso",
+    icon: "/img/tuerca.webp",
+    artwork: "from-amber-950 via-orange-900 to-amber-500",
   },
   {
-    slug: "curso-4",
-    title: "Introducción a ciencia de datos",
-    classes: "9 clases",
-    modality: "Virtual",
-    label: "CIENCIA DE DATOS",
-    icon: "/img/icono_crecimiento.webp",
-    artwork: "from-slate-950 via-teal-900 to-yellow-500",
+    key: "libre",
+    title: "Curso libre",
+    label: "LIBRE",
+    description: "A tu ritmo, sin horarios fijos",
+    icon: "/img/libro.webp",
+    artwork: "from-violet-950 via-purple-900 to-pink-500",
   },
   {
-    slug: "curso-6",
-    title: "SQL y bases de datos",
-    classes: "9 clases",
-    modality: "Virtual",
-    label: "DATOS",
-    icon: "/img/procesador.webp",
-    artwork: "from-neutral-950 via-neutral-800 to-orange-500",
+    key: "aplicativo",
+    title: "Curso aplicativo",
+    label: "APLICATIVO",
+    description: "Proyectos reales, listos para aplicar",
+    icon: "/img/icono_laptop.webp",
+    artwork: "from-blue-950 via-indigo-900 to-cyan-500",
   },
 ];
 
@@ -51,14 +47,13 @@ export function CoursesSection() {
         <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-600">
-              Nuestros cursos
+              Nuestras modalidades
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-neutral-950 sm:text-4xl">
-              Aprende lo que necesitas para tus proyectos
+              Elige cómo quieres aprender
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-6 text-neutral-500 sm:text-base">
-              Formación práctica para desarrollar habilidades, experimentar con
-              tecnología y llevar tus ideas a la realidad.
+              Cada modalidad está diseñada para adaptarse a tu ritmo y objetivos.
             </p>
           </div>
           <Link
@@ -71,14 +66,14 @@ export function CoursesSection() {
         </div>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {courses.map(({ slug, title, classes, modality, label, icon, artwork }) => (
+          {modalidades.map(({ key, title, label, description, icon, artwork }) => (
             <article
-              key={slug}
+              key={key}
               className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:border-orange-200 hover:shadow-md"
             >
               <Link
-                href={`/cursos/${slug}`}
-                aria-label={`Más información sobre ${title}`}
+                href={`/cursos?modalidad=${key}`}
+                aria-label={`Ver cursos de ${title}`}
                 className="block"
               >
                 <div
@@ -109,22 +104,15 @@ export function CoursesSection() {
                 </div>
               </Link>
 
-              <div className="grid grid-cols-2 gap-2 border-t border-neutral-100 px-4 py-3 text-xs text-neutral-500">
-                <span className="flex items-center gap-1.5">
-                  <Users className="size-3.5 text-orange-500" aria-hidden="true" />
-                  {classes}
-                </span>
-                <span className="flex items-center justify-end gap-1.5">
-                  <Monitor className="size-3.5 text-orange-500" aria-hidden="true" />
-                  {modality}
-                </span>
+              <div className="px-4 py-3">
+                <p className="text-sm text-neutral-600 line-clamp-2">{description}</p>
               </div>
 
               <Link
-                href={`/cursos/${slug}`}
+                href={`/cursos?modalidad=${key}`}
                 className="mx-4 mb-4 flex min-h-10 items-center justify-center gap-2 rounded-lg bg-orange-500 px-3 text-sm font-semibold text-white transition-colors hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
               >
-                Más información
+                Explorar cursos
                 <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </article>
@@ -134,4 +122,3 @@ export function CoursesSection() {
     </section>
   );
 }
-

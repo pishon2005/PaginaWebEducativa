@@ -1,4 +1,5 @@
 import { CourseCatalog } from "@/components/shared/course-catalog";
+import { Suspense } from "react";
 
 export default function CursosPage() {
   return (
@@ -16,7 +17,9 @@ export default function CursosPage() {
             duración o precio y aprende construyendo.
           </p>
         </div>
-        <CourseCatalog />
+        <Suspense fallback={<div className="h-64 animate-pulse bg-neutral-100 rounded-xl" />}>
+          <CourseCatalog />
+        </Suspense>
       </div>
     </div>
   );

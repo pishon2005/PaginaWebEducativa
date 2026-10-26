@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   ArrowRight,
   BookOpen,
@@ -16,10 +17,28 @@ import { demoCoursesList } from "@/lib/demo-data";
 const courses = demoCoursesList.filter((course) => course.published);
 
 export function CourseCatalog() {
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [level, setLevel] = useState("Todos los niveles");
   const [maxPrice, setMaxPrice] = useState("Cualquier precio");
   const [duration, setDuration] = useState("Cualquier duración");
+  const [modalidadCurso, setModalidadCurso] = useState("Todas las modalidades");
+
+  // Leer parámetro modalidad de la URL al montar
+  useEffect(() => {
+    const modalidad = searchParams.get("modalidad");
+    const validModalidades = ["nivelacion", "taller", "libre", "aplicativo"];
+    if (modalidad && validModalidades.includes(modalidad)) {
+      // Mapear a las etiquetas del select
+      const labelMap: Record<string, string> = {
+        nivelacion: "Nivelación",
+        taller: "Taller",
+        libre: "Libre",
+        aplicativo: "Aplicativo",
+      };
+      setModalidadCurso(labelMap[modalidad] || "Todas las modalidades");
+    }
+  }, [searchParams]);
 
   const visibleCourses = useMemo(
     () =>
@@ -38,12 +57,19 @@ export function CourseCatalog() {
             : duration === "21 a 40 horas"
               ? course.hours > 20 && course.hours <= 40
               : course.hours > 40);
+        const matchesModalidadCurso =
+          modalidadCurso === "Todas las modalidades" ||
+          course.modalidadCurso === modalidadCurso;
 
         return (
-          matchesQuery && matchesLevel && matchesPrice && matchesDuration
+          matchesQuery &&
+          matchesLevel &&
+          matchesPrice &&
+          matchesDuration &&
+          matchesModalidadCurso
         );
       }),
-    [duration, level, maxPrice, query],
+    [duration, level, maxPrice, query, modalidadCurso],
   );
 
   function clearFilters() {
@@ -51,6 +77,7 @@ export function CourseCatalog() {
     setLevel("Todos los niveles");
     setMaxPrice("Cualquier precio");
     setDuration("Cualquier duración");
+    setModalidadCurso("Todas las modalidades");
   }
 
   return (
@@ -119,7 +146,27 @@ export function CourseCatalog() {
             <option key={option}>{option}</option>
           ))}
         </select>
-      </div>
+                <label className="sr-only" htmlFor="catalog-modalidad-curso">
+                  Filtrar por modalidad de curso
+                </label>
+                <select
+                  id="catalog-modalidad-curso"
+                  aria-label="Filtrar por modalidad de curso"
+                  value={modalidadCurso}
+                  onChange={(event) => setModalidadCurso(event.target.value)}
+                  className="h-11 min-w-0 rounded-lg border border-neutral-300 bg-neutral-50 px-3 text-sm text-neutral-700 outline-none transition focus:border-orange-500 focus:ring-3 focus:ring-orange-500/15"
+                >
+                  {[
+                    "Todas las modalidades",
+                    "Nivelación",
+                    "Taller",
+                    "Libre",
+                    "Aplicativo",
+                  ].map((option) => (
+                    <option key={option}>{option}</option>
+                  ))}
+                </select>
+              </div>
 
       <div className="mt-5 flex items-center justify-between gap-3">
         <p aria-live="polite" className="text-sm text-neutral-600">

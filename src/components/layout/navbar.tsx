@@ -6,11 +6,9 @@ import { usePathname } from "next/navigation";
 import {
   ArrowUpRight,
   Cpu,
-  FlaskConical,
   GraduationCap,
   Menu,
   Search,
-  Users,
 } from "lucide-react";
 
 import {
@@ -26,16 +24,17 @@ const navigationLinks = [
   { href: "/", label: "Inicio" },
   { href: "/cursos", label: "Cursos" },
   { href: "/#proyectos", label: "Proyectos" },
-  { href: "/recursos", label: "Recursos" },
-  { href: "/nosotros", label: "Nosotros" },
+  { href: "/#investigaciones", label: "Investigaciones" },
+  { href: "/tienda", label: "Tienda" },
   { href: "/#contacto", label: "Contacto" },
 ];
 
 const mobileQuickLinks = [
   { href: "/cursos", label: "Explorar cursos", icon: GraduationCap },
   { href: "/#proyectos", label: "Proyectos", icon: Cpu },
-  { href: "/recursos", label: "Recursos", icon: FlaskConical },
-  { href: "/nosotros", label: "Nosotros", icon: Users },
+  { href: "/#investigaciones", label: "Investigaciones", icon: Cpu },
+  { href: "/tienda", label: "Tienda", icon: Cpu },
+  { href: "/#contacto", label: "Contacto", icon: Cpu },
 ];
 
 export function Navbar() {
