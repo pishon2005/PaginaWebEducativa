@@ -23,7 +23,6 @@ import {
 const navigationLinks = [
   { href: "/", label: "Inicio" },
   { href: "/cursos", label: "Cursos" },
-  { href: "/#proyectos", label: "Proyectos" },
   { href: "/#investigaciones", label: "Investigaciones" },
   { href: "/tienda", label: "Tienda" },
   { href: "/#contacto", label: "Contacto" },
@@ -31,7 +30,6 @@ const navigationLinks = [
 
 const mobileQuickLinks = [
   { href: "/cursos", label: "Explorar cursos", icon: GraduationCap },
-  { href: "/#proyectos", label: "Proyectos", icon: Cpu },
   { href: "/#investigaciones", label: "Investigaciones", icon: Cpu },
   { href: "/tienda", label: "Tienda", icon: Cpu },
   { href: "/#contacto", label: "Contacto", icon: Cpu },
@@ -80,7 +78,7 @@ export function Navbar() {
 
         <nav
           aria-label="Navegación principal"
-          className="hidden items-center gap-0.5 lg:flex"
+          className="hidden items-center gap-0.5 min-[1150px]:flex"
           onMouseLeave={() => setHoveredHref(null)}
         >
           {navigationLinks.map((item) => {
@@ -134,7 +132,7 @@ export function Navbar() {
                 <button
                   type="button"
                   aria-label="Abrir menú de navegación"
-                  className="grid size-10 place-items-center rounded-lg border border-neutral-200 text-neutral-900 transition-colors hover:border-orange-300 hover:bg-orange-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 lg:hidden"
+                  className="grid size-10 place-items-center rounded-lg border border-neutral-200 text-neutral-900 transition-colors hover:border-orange-300 hover:bg-orange-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 min-[1150px]:hidden"
                 >
                   <Menu className="size-5" aria-hidden="true" />
                 </button>

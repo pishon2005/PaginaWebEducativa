@@ -84,12 +84,13 @@ export default function AlumnoDashboard() {
             <Link href="/alumno/calendario" className="inline-flex items-center gap-1 pt-1 text-xs font-semibold text-[#ea580c] hover:text-[#f97316]">Abrir calendario <CalendarDays className="size-3.5" aria-hidden="true" /></Link>
           </div>
         </div>
+      </section>
 
-                {/* Resumen de asistencia */}
-                                {asistenciaData && (
-                                  <AttendanceSummary data={asistenciaData} cursoId={cursoId} maxItems={3} />
-                                )}
-              </section>
-            </div>
-          );
-        }
+      {asistenciaData && (
+        <section aria-label="Resumen de asistencia">
+          <AttendanceSummary data={asistenciaData} cursoId={cursoId} maxItems={3} />
+        </section>
+      )}
+    </div>
+  );
+}

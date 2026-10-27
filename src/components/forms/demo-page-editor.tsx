@@ -3,11 +3,11 @@
 import { FormEvent, useState } from "react";
 import { CheckCircle2, Eye, EyeOff, LayoutTemplate } from "lucide-react";
 
-type SectionKey = "catalogo" | "proyectos" | "contacto";
+type SectionKey = "catalogo" | "investigaciones" | "contacto";
 
 const sectionLabels: Record<SectionKey, string> = {
   catalogo: "Catálogo de cursos",
-  proyectos: "Proyectos",
+  investigaciones: "Investigación",
   contacto: "Contacto",
 };
 
@@ -18,7 +18,7 @@ export function DemoPageEditor() {
   const [ctaLabel, setCtaLabel] = useState("Explorar cursos");
   const [contactEmail, setContactEmail] = useState("contacto@edukatech.pe");
   const [contactPhone, setContactPhone] = useState("+51 999 999 999");
-  const [sections, setSections] = useState<Record<SectionKey, boolean>>({ catalogo: true, proyectos: true, contacto: true });
+  const [sections, setSections] = useState<Record<SectionKey, boolean>>({ catalogo: true, investigaciones: true, contacto: true });
   const [notice, setNotice] = useState("");
 
   function toggleSection(key: SectionKey) {

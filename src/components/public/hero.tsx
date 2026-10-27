@@ -89,7 +89,7 @@ export function Hero() {
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <Link
-              href="#proyectos"
+              href="#investigaciones"
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-orange-400 px-6 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Conoce más

@@ -20,7 +20,7 @@ const communityCards = [
     icon: "/img/personas.webp",
   },
   {
-    id: "investigacion",
+    id: "asesoria-tesis",
     eyebrow: "Lleva tus ideas más lejos",
     title: "Asesoría de tesis",
     description:
