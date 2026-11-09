@@ -1,6 +1,6 @@
 import { TeacherCourseHeader } from "@/components/shared/teacher-course-header";
 import { DemoCourseContentStudio } from "@/components/shared/demo-course-content-studio";
-import { getDemoCourse } from "@/lib/demo-courses";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
 
 export default async function ProfesorContenidoPage({
   params,
@@ -8,7 +8,7 @@ export default async function ProfesorContenidoPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getDemoCourse(id);
+  const course = getUnavailableCourse(id);
 
   return (
     <div className="space-y-5">

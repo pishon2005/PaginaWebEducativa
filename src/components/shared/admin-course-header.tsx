@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { getDemoCourse } from "@/lib/demo-courses";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
 
 const sections = [
   { id: "informacion", label: "Información", path: "" },
@@ -24,7 +24,7 @@ export function AdminCourseHeader({
   description,
   action,
 }: AdminCourseHeaderProps) {
-  const course = getDemoCourse(courseId);
+  const course = getUnavailableCourse(courseId);
 
   return (
     <header className="mb-6">

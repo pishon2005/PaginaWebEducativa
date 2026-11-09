@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: EDUKATECH Next.js callback API
+  version: 1.0.0
+  summary: Custom HTTP endpoints owned by the Next.js application.
+  description: |
+    This document contains only application-owned Route Handlers. Business
+    reads and writes are not exposed as custom REST endpoints. Supabase Auth,
+    PostgREST, Storage, and Realtime APIs are provider-managed and are described
+    in API_CONTRACT.md instead.
+    The only current custom endpoint completes the Supabase Auth PKCE callback.
+    Its authorization code is single-use and must not be logged or persisted.
+paths:
+  /auth/callback:
+    get:
+      operationId: exchangeSupabaseAuthCode
+      summary: Complete the Supabase Auth PKCE callback
+      description: |
+        Exchanges the one-time authorization code using the server-side PKCE
+        verifier held by the SSR Auth cookie flow, then redirects to a validated
+        local path. This endpoint does not return tokens to the browser. The
+        `code` query value is sensitive and must be redacted from access logs.
+        No business CRUD, Storage proxy, or Realtime endpoint is defined here.
+      tags:
+        - Authentication
+      security: []
+      parameters:
+        - name: code
+          in: query
+          required: false
+          description: |
+            One-time Supabase authorization code. It may be absent, in which
+            case the handler redirects to the login page with a generic error.
+          schema:
+            type: string
+            minLength: 1
+        - name: next
+          in: query
+          required: false
+          description: |
+            Requested local destination. External, protocol-relative, and
+            backslash-prefixed values are rejected and replaced with the
+            pending-access destination.
+          schema:
+            type: string
+            default: /acceso-pendiente
+      responses:
+        "307":
+          description: |
+            Redirect after successful code exchange, or redirect to login with
+            a generic error if configuration, code, or exchange is invalid.
+          headers:
+            Location:
+              description: Validated local destination or login error path.
+              schema:
+                type: string
+                format: uri-reference
+components:
+  securitySchemes:
+    supabaseUserJwt:
+      type: http
+      scheme: bearer
+      bearerFormat: Supabase JWT
+      description: |
+        Applies to user-scoped Supabase services, not this callback endpoint.
+        Supabase SDKs manage the session cookies/tokens; do not copy JWTs into
+        application storage or log them.
+  schemas:
+    ApplicationError:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          enum:
+            - unauthenticated
+            - session_expired
+            - forbidden
+            - validation
+            - not_found
+            - conflict
+            - operation_not_allowed
+            - rate_limited
+            - offline
+            - unavailable
+            - file_too_large
+            - unsupported_file_type
+            - upload_failed
+            - storage_unavailable
+            - file_quarantined
+            - not_configured
+            - internal
+            - unknown
+        message:
+          type: string
+          description: Safe, user-facing message; contains no SQL or secrets.
+        fieldErrors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    ActionFailure:
+      type: object
+      additionalProperties: false
+      required:
+        - ok
+        - error
+      properties:
+        ok:
+          const: false
+        error:
+          $ref: "#/components/schemas/ApplicationError"
+    Cursor:
+      type: object
+      description: |
+        Application-level opaque cursor. Individual resource contracts define
+        stable timestamp and identifier sort keys; this is not a custom HTTP
+        endpoint parameter.
+      additionalProperties: true
+    UserRole:
+      type: string
+      enum:
+        - superadmin
+        - admin
+        - profesor
+        - alumno
+security: []

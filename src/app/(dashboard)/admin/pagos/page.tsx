@@ -3,12 +3,12 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { demoPayments, getCourseById } from "@/lib/demo-data";
+import { unavailablePayments, getUnavailableCourse } from "@/lib/services/unavailable-data";
 
-const pagosDemo = demoPayments.map((payment) => ({
+const pagosDemo = unavailablePayments.map((payment) => ({
   id: payment.id,
   alumno: payment.student,
-  curso: getCourseById(payment.courseId).title,
+  curso: getUnavailableCourse(payment.courseId).title,
   monto: payment.amount,
   estado: payment.status,
   metodo: payment.method,

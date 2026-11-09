@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -12,33 +12,52 @@ import {
   Users,
 } from "lucide-react";
 
-import { demoCoursesList } from "@/lib/demo-data";
+import { unavailableCourses } from "@/lib/services/unavailable-data";
 
-const courses = demoCoursesList.filter((course) => course.published);
+const courses = unavailableCourses.filter((course) => course.published);
+
+const MODALITY_LABELS: Record<string, string> = {
+  nivelacion: "Nivelación",
+  taller: "Taller",
+  libre: "Libre",
+  aplicativo: "Aplicativo",
+};
 
 export function CourseCatalog() {
   const searchParams = useSearchParams();
+  const modalidadParam = searchParams.get("modalidad");
+  const initialModalidadCurso =
+    MODALITY_LABELS[modalidadParam ?? ""] ?? "Todas las modalidades";
+
+  return (
+    <CourseCatalogFilters
+      initialModalidadCurso={initialModalidadCurso}
+      modalidadParam={modalidadParam}
+    />
+  );
+}
+
+function CourseCatalogFilters({
+  initialModalidadCurso,
+  modalidadParam,
+}: {
+  initialModalidadCurso: string;
+  modalidadParam: string | null;
+}) {
   const [query, setQuery] = useState("");
   const [level, setLevel] = useState("Todos los niveles");
   const [maxPrice, setMaxPrice] = useState("Cualquier precio");
   const [duration, setDuration] = useState("Cualquier duración");
-  const [modalidadCurso, setModalidadCurso] = useState("Todas las modalidades");
+  const [modalidadCurso, setModalidadCurso] = useState(initialModalidadCurso);
+  const [previousModalidadParam, setPreviousModalidadParam] =
+    useState(modalidadParam);
 
-  // Leer parámetro modalidad de la URL al montar
-  useEffect(() => {
-    const modalidad = searchParams.get("modalidad");
-    const validModalidades = ["nivelacion", "taller", "libre", "aplicativo"];
-    if (modalidad && validModalidades.includes(modalidad)) {
-      // Mapear a las etiquetas del select
-      const labelMap: Record<string, string> = {
-        nivelacion: "Nivelación",
-        taller: "Taller",
-        libre: "Libre",
-        aplicativo: "Aplicativo",
-      };
-      setModalidadCurso(labelMap[modalidad] || "Todas las modalidades");
+  if (previousModalidadParam !== modalidadParam) {
+    setPreviousModalidadParam(modalidadParam);
+    if (modalidadParam && MODALITY_LABELS[modalidadParam]) {
+      setModalidadCurso(MODALITY_LABELS[modalidadParam]);
     }
-  }, [searchParams]);
+  }
 
   const visibleCourses = useMemo(
     () =>

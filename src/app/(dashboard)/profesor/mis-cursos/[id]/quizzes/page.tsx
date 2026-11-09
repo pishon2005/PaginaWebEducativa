@@ -1,7 +1,7 @@
 import { TeacherCourseHeader } from "@/components/shared/teacher-course-header";
 import { CheckCircle2, Clock3 } from "lucide-react";
-import { getDemoCourse } from "@/lib/demo-courses";
-import { getQuizzesByCourse } from "@/lib/demo-data";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
+import { getUnavailableQuizzes } from "@/lib/services/unavailable-data";
 import { DemoCreateSection } from "@/components/shared/demo-create-section";
 import { DemoQuizBuilder } from "@/components/forms/demo-quiz-builder";
 
@@ -11,8 +11,8 @@ export default async function ProfesorQuizzesPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getDemoCourse(id);
-  const quizzes = getQuizzesByCourse(id);
+  const course = getUnavailableCourse(id);
+  const quizzes = getUnavailableQuizzes(id);
 
   return (
     <div className="space-y-5">

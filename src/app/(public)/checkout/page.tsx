@@ -1,5 +1,5 @@
 import { DemoCheckoutForm } from "@/components/forms/demo-checkout-form";
-import { getCourseBySlug } from "@/lib/demo-data";
+import { getUnavailableCourseBySlug } from "@/lib/services/unavailable-data";
 
 export default async function CheckoutPage({
   searchParams,
@@ -7,7 +7,7 @@ export default async function CheckoutPage({
   searchParams: Promise<{ curso?: string }>;
 }) {
   const { curso } = await searchParams;
-  const selectedCourse = getCourseBySlug(curso ?? "curso-1");
+  const selectedCourse = getUnavailableCourseBySlug(curso ?? "curso-1");
 
   return (
     <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14">

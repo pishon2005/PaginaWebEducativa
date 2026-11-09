@@ -1,8 +1,10 @@
 # Proyecto EDUKATECH - Documentación Completa de Contexto
 
+> **Documento histórico:** conserva notas y decisiones de implementación registradas hasta 2026-10-26. Para el estado actual y las reglas aprobadas, consultar [CONTEXTO_PROYECTO.md](./CONTEXTO_PROYECTO.md), [docs/INVENTARIO_FRONTEND.md](./docs/INVENTARIO_FRONTEND.md) y [docs/REGLAS_NEGOCIO_Y_MODELO_DATOS.md](./docs/REGLAS_NEGOCIO_Y_MODELO_DATOS.md). Las opciones de PostgreSQL local de producción, NextAuth, modalidad híbrida, QR obligatorio y migraciones Drizzle descritas en notas antiguas están supersedidas; no son instrucciones vigentes.
+
 > **Última actualización**: 2026-10-26
 > **Versión**: 1.0.0
-> **Framework**: Next.js 16.3.8 (App Router) + React 19.2.8 + TypeScript 5 + Tailwind CSS 4
+> **Framework**: Next.js 16.4.4 (App Router) + React 19.2.8 + TypeScript 5 + Tailwind CSS 4
 
 ---
 
@@ -11,7 +13,7 @@
 **EDUKATECH Technology Division** - Plataforma educativa en español para cursos virtuales de mecatrónica, programación y tecnología.
 
 ### Stack Tecnológico
-- **Frontend**: Next.js 16.3.8 (App Router), React 19.2.8, TypeScript 5
+- **Frontend**: Next.js 16.4.4 (App Router), React 19.2.8, TypeScript 5
 - **Styling**: Tailwind CSS 4, tw-animate-css, shadcn/ui components
 - **Database**: PostgreSQL + Drizzle ORM + drizzle-kit
 - **State Management**: TanStack React Query v5
@@ -503,17 +505,16 @@ Curso Base (Plantilla)
 }
 ```
 
-### Variables de Entorno Requeridas (`.env.local`)
+### Variables de Entorno (referencia histórica, no usar como configuración vigente)
+
+La arquitectura de producción aprobada usa Supabase PostgreSQL. El ejemplo de conexión local que permanece en el bloque histórico no es configuración de producción; no documentar secretos ni reutilizarlo como destino productivo.
 ```env
 DATABASE_URL="postgresql://user:pass@localhost:5432/edukatech"
 ```
 
-### Drizzle Commands
-```bash
-npx drizzle-kit generate    # Generar migraciones
-npx drizzle-kit migrate     # Aplicar migraciones
-npx drizzle-kit studio      # UI visual (opcional)
-```
+### Comandos de base de datos
+
+Las instrucciones Drizzle que antes aparecían aquí están supersedidas. La estrategia aprobada usa migraciones SQL de Supabase como historial oficial y mantiene Drizzle sincronizado como representación tipada. No ejecutar los comandos históricos de migración de este documento.
 
 ### Build & Lint
 ```bash
@@ -583,15 +584,13 @@ npm run dev     # Desarrollo (Turbopack)
 - [ ] Validar capacidad, fechas, prerrequisitos
 - [ ] Integración pagos (Yape/Plin) real
 
-### Fase 9: APIs Reales + Autenticación Real
-- [ ] Reemplazar demo data con endpoints API
-- [ ] NextAuth.js o similar para auth real
-- [ ] Middleware protección rutas dashboard
+### Fase 9: Backend real (propuesta histórica, arquitectura ya fijada)
+- [ ] Reemplazar datos demo con flujos de servidor autorizados mediante Server Actions o Route Handlers cuando corresponda.
+- [ ] Integrar Supabase Auth con gestión de sesión compatible con Next.js; validar autorización en servidor y RLS.
+- [ ] Proteger los datos y rutas según relaciones y ámbitos del modelo aprobado.
 
-### Fase 10: QR/Autoregistro Asistencia
-- [ ] Generar QR por clase
-- [ ] Endpoint auto-registro alumno
-- [ ] Validación geolocalización/tiempo
+### Fase 10: Autorregistro de asistencia (fuera de alcance inicial)
+- No se ha aprobado QR como mecanismo obligatorio. La primera versión registra asistencia por sesión mediante el flujo autorizado definido en `docs/REGLAS_NEGOCIO_Y_MODELO_DATOS.md`.
 
 ### Fase 11: Reportes y Analytics
 - [ ] Exportar asistencia Excel/PDF
@@ -608,7 +607,7 @@ npm run dev     # Desarrollo (Turbopack)
 - Transición: 700ms ease-in-out, 5s intervalo (`AUTO_PLAY_INTERVAL`)
 
 ### Asistencia - Puntos Clave
-- Modalidad híbrida: Solo en secciones con `permitirEleccionModalidad: true`
+- Esta nota refleja el prototipo anterior. La primera versión aprobada ofrece modalidad presencial o virtual por sección; no modalidad híbrida ni elección individual de modalidad por clase.
 - Chico_fondo: Solo aparece en slide 0 (Fondo1), transiciona con él
 - Secciones: Profesor/Alumno/Admin deben seleccionar sección → clase
 
@@ -618,10 +617,8 @@ npm run dev     # Desarrollo (Turbopack)
 - Productos en array `products` con campos completos
 
 ### Base de Datos - Migraciones
-```bash
-npx drizzle-kit generate  # Generar migraciones
-npx drizzle-kit migrate   # Aplicar migraciones
-```
+
+Las notas de comandos Drizzle de este documento son históricas. Usar la estrategia SQL de Supabase descrita en la documentación vigente.
 
 ---
 
@@ -886,11 +883,7 @@ npm run build
 # Lint
 npm run lint
 
-# Base de datos (requiere PostgreSQL)
-# 1. Configurar DATABASE_URL en .env.local
-# 2. npx drizzle-kit generate
-# 3. npx drizzle-kit migrate
-# 4. npx drizzle-kit studio (opcional)
+# Base de datos: consultar la estrategia de Supabase en la documentación vigente.
 ```
 
 ---
@@ -903,7 +896,7 @@ npm run lint
 - **Transición**: 700ms ease-in-out, 5s intervalo (`AUTO_PLAY_INTERVAL`)
 
 ### Asistencia
-- **Modalidad híbrida**: Solo en secciones con `permitirEleccionModalidad: true`
+- El prototipo histórico incluía modalidad híbrida; la primera versión aprobada ofrece modalidad presencial o virtual por sección.
 - **Chico_fondo**: Solo aparece en slide 0 (Fondo1), transiciona con él
 - **Secciones**: Profesor/Alumno/Admin deben seleccionar sección → clase
 
@@ -913,9 +906,9 @@ npm run lint
 - **Productos**: Array `products` con campos: id, name, price, originalPrice, badge, inStock
 
 ### Base de Datos
-- **Migraciones**: `npx drizzle-kit generate` + `npx drizzle-kit migrate`
-- **Schema**: En `src/lib/db/schema/` (archivos por dominio)
-- **Seed**: Datos demo en `lib/demo-data.ts` y `lib/asistencia/demo-asistencia.ts`
+- **Migraciones oficiales**: SQL de Supabase, según la arquitectura aprobada.
+- **Modelo tipado**: `src/lib/db/schema/`, que deberá sincronizarse con el esquema oficial.
+- **Datos demo**: fixtures en `src/lib/demo-data.ts` y `src/lib/asistencia/demo-asistencia.ts`; no son datos de producción.
 
 ### Convenciones
 - **Client Components**: `"use client"` directive

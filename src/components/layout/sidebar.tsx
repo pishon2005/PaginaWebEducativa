@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { signOutAction } from "@/app/(auth)/actions";
 import {
   ArrowUpRight,
   ChevronDown,
@@ -30,32 +31,6 @@ const roleViews = [
   { href: "/profesor", label: "Profesor", shortLabel: "Profesor" },
   { href: "/alumno", label: "Alumno", shortLabel: "Alumno" },
 ];
-
-const demoIdentities = {
-  superadmin: { name: "Superadmin demo", initials: "SA" },
-  admin: { name: "Sofía Herrera", initials: "SH" },
-  profesor: { name: "Ana María Campos", initials: "AC" },
-  alumno: { name: "Valeria Rojas", initials: "VR" },
-} as const;
-
-const demoNotifications = {
-  superadmin: [
-    { title: "Nuevo usuario registrado", detail: "La institución EDUKATECH sumó un administrador.", time: "Hace 8 min" },
-    { title: "Reporte semanal disponible", detail: "Ya puedes revisar el resumen de actividad.", time: "Hace 1 h" },
-  ],
-  admin: [
-    { title: "Nuevo curso pendiente", detail: "Revisa la propuesta de Diseño de interfaces.", time: "Hace 12 min" },
-    { title: "Pago por validar", detail: "Hay una solicitud nueva en el registro de pagos.", time: "Hace 1 h" },
-  ],
-  profesor: [
-    { title: "Entregas por revisar", detail: "Tienes 8 actividades nuevas en Python.", time: "Hace 20 min" },
-    { title: "Mensaje de un alumno", detail: "Valeria preguntó por la entrega de Fundamentos de Python.", time: "Hace 1 h" },
-  ],
-  alumno: [
-    { title: "Nueva clase disponible", detail: "Ya puedes comenzar el módulo de esta semana.", time: "Hace 10 min" },
-    { title: "Fecha de entrega próxima", detail: "Tu práctica de Python vence el 7 de octubre.", time: "Hace 2 h" },
-  ],
-} as const;
 
 const navigation = {
   superadmin: [
@@ -179,9 +154,6 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="mt-auto border-t border-[#e7e5e4] pt-4">
-        <p className="px-3 text-[10px] text-[#78716c]">Entorno de demostración · datos de muestra</p>
-      </div>
     </aside>
   );
 }
@@ -189,7 +161,6 @@ export function Sidebar() {
 export function DashboardTopbar() {
   const pathname = usePathname();
   const role = getRole(pathname);
-  const identity = demoIdentities[role];
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
@@ -197,38 +168,30 @@ export function DashboardTopbar() {
       <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-[#e7e5e4] bg-white/95 px-4 backdrop-blur md:px-8">
         <div>
           <p className="text-[10px] font-medium text-[#78716c] sm:text-xs">EDUKATECH · {getRoleName(role)}</p>
-          <p className="mt-0.5 text-xs font-semibold text-[#171717] sm:text-sm">{identity.name}</p>
+          <p className="mt-0.5 text-xs font-semibold text-[#171717] sm:text-sm">Sesión autenticada</p>
         </div>
         <div className="flex items-center gap-4">
           <details className="group relative">
-            <summary aria-label={`Notificaciones: ${demoNotifications[role].length} avisos recientes`} className="relative grid size-10 cursor-pointer list-none place-items-center rounded-xl border border-[#e7e5e4] bg-white text-[#ea580c] transition hover:bg-[#fafaf9] [&::-webkit-details-marker]:hidden">
+            <summary aria-label="Notificaciones" className="relative grid size-10 cursor-pointer list-none place-items-center rounded-xl border border-[#e7e5e4] bg-white text-[#ea580c] transition hover:bg-[#fafaf9] [&::-webkit-details-marker]:hidden">
               <Bell className="size-[18px]" aria-hidden="true" />
               <span className="absolute right-1.5 top-1.5 size-2 rounded-full border-2 border-white bg-[#c57d45]" aria-hidden="true" />
             </summary>
             <section className="absolute right-0 top-12 z-50 w-[min(340px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[#e7e5e4] bg-white shadow-[0_20px_55px_-25px_rgba(28,25,23,0.35)]" aria-label="Avisos recientes">
-              <div className="flex items-center justify-between border-b border-[#fafaf9] px-4 py-3.5">
-                <div><h2 className="text-sm font-semibold text-[#171717]">Notificaciones</h2><p className="mt-0.5 text-[10px] text-[#78716c]">Novedades de tu espacio</p></div>
-                <span className="rounded-full bg-[#fff7ed] px-2.5 py-1 text-[10px] font-bold text-[#ea580c]">{demoNotifications[role].length} nuevas</span>
-              </div>
-              <div className="divide-y divide-[#fafaf9]">
-                {demoNotifications[role].map((notification) => (
-                  <article key={notification.title} className="flex gap-3 px-4 py-3.5">
-                    <span className="mt-1.5 size-2 shrink-0 rounded-full bg-[#ea580c]" aria-hidden="true" />
-                    <div className="min-w-0"><h3 className="text-xs font-semibold text-[#171717]">{notification.title}</h3><p className="mt-1 text-[11px] leading-5 text-[#44403c]">{notification.detail}</p><p className="mt-1 text-[10px] text-[#78716c]">{notification.time}</p></div>
-                  </article>
-                ))}
+              <div className="border-b border-[#fafaf9] px-4 py-3.5">
+                <h2 className="text-sm font-semibold text-[#171717]">Notificaciones</h2>
+                <p className="mt-2 text-xs leading-5 text-[#78716c]">No hay notificaciones disponibles todavía.</p>
               </div>
               <Link href={`/${role}/notificaciones`} className="block border-t border-[#fafaf9] px-4 py-3 text-center text-xs font-semibold text-[#ea580c] hover:bg-[#fff7ed]">Ver todas las notificaciones</Link>
             </section>
           </details>
           <details className="group relative">
-            <summary aria-label={`Cuenta demo: ${identity.name}`} className="grid size-9 cursor-pointer list-none place-items-center rounded-full bg-[#fff7ed] text-xs font-bold text-[#ea580c] ring-[#e7e5e4] transition hover:ring-2 [&::-webkit-details-marker]:hidden">
-              {identity.initials}
+            <summary aria-label="Cuenta autenticada" className="grid size-9 cursor-pointer list-none place-items-center rounded-full bg-[#fff7ed] text-xs font-bold text-[#ea580c] ring-[#e7e5e4] transition hover:ring-2 [&::-webkit-details-marker]:hidden">
+              {getRoleName(role)?.slice(0, 2).toUpperCase()}
             </summary>
             <section aria-label="Menú de cuenta" className="absolute right-0 top-12 z-50 w-56 overflow-hidden rounded-2xl border border-[#e7e5e4] bg-white shadow-[0_20px_55px_-25px_rgba(28,25,23,0.35)]">
               <div className="border-b border-[#fafaf9] px-4 py-3.5">
-                <p className="text-sm font-semibold text-[#171717]">{identity.name}</p>
-                <p className="mt-0.5 text-[10px] text-[#78716c]">{getRoleName(role)} · cuenta demo</p>
+                <p className="text-sm font-semibold text-[#171717]">Cuenta autenticada</p>
+                <p className="mt-0.5 text-[10px] text-[#78716c]">{getRoleName(role)}</p>
               </div>
               <nav className="p-1.5 text-xs font-medium text-[#44403c]">
                 {(role === "alumno" || role === "profesor") && (
@@ -244,9 +207,11 @@ export function DashboardTopbar() {
                 </Link>
               </nav>
               <div className="border-t border-[#fafaf9] p-1.5">
-                <Link href="/login" className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-xs font-semibold text-[#a24135] transition hover:bg-[#fff4f2]">
-                  <KeyRound className="size-4" aria-hidden="true" /> Cerrar sesión demo
-                </Link>
+                <form action={signOutAction}>
+                  <button type="submit" className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-semibold text-[#a24135] transition hover:bg-[#fff4f2]">
+                    <KeyRound className="size-4" aria-hidden="true" /> Cerrar sesión
+                  </button>
+                </form>
               </div>
             </section>
           </details>

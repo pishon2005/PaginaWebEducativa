@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Play, FileText, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { getDemoCourse } from "@/lib/demo-courses";
-import { getDemoCourseContent } from "@/lib/demo-course-content";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
+import { getUnavailableCourseContent } from "@/lib/services/unavailable-content";
 
 export default async function AlumnoSemanaPage({
   params,
@@ -12,8 +12,8 @@ export default async function AlumnoSemanaPage({
   params: Promise<{ id: string; semanaId: string }>;
 }) {
   const { id, semanaId } = await params;
-  const course = getDemoCourse(id);
-  const modules = getDemoCourseContent(id);
+  const course = getUnavailableCourse(id);
+  const modules = getUnavailableCourseContent(id);
   const moduleIndex = Math.max(0, Math.min(modules.length - 1, Number(semanaId) - 1 || 0));
   const currentModule = modules[moduleIndex];
   const firstLessonIndex = modules.slice(0, moduleIndex).reduce((count, item) => count + item.lessons.length, 0);

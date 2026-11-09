@@ -4,8 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { Calendar } from "lucide-react";
-import { getDemoCourse } from "@/lib/demo-courses";
-import { getAssignmentsByCourse } from "@/lib/demo-data";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
+import { getUnavailableAssignments } from "@/lib/services/unavailable-data";
 
 export default async function AlumnoTareasPage({
   params,
@@ -13,8 +13,8 @@ export default async function AlumnoTareasPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getDemoCourse(id);
-  const tareasDemo = getAssignmentsByCourse(id);
+  const course = getUnavailableCourse(id);
+  const tareasDemo = getUnavailableAssignments(id);
   const pendingCount = tareasDemo.filter((task) => task.status === "pendiente").length;
 
   return (

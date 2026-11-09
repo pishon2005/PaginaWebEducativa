@@ -4,8 +4,8 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Calendar } from "lucide-react";
-import { getDemoCourse } from "@/lib/demo-courses";
-import { getAssignmentsByCourse } from "@/lib/demo-data";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
+import { getUnavailableAssignments } from "@/lib/services/unavailable-data";
 import { DemoCreateSection } from "@/components/shared/demo-create-section";
 import { DemoTaskBuilder } from "@/components/forms/demo-task-builder";
 
@@ -15,8 +15,8 @@ export default async function ProfesorTareasPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getDemoCourse(id);
-  const tareasDemo = getAssignmentsByCourse(id);
+  const course = getUnavailableCourse(id);
+  const tareasDemo = getUnavailableAssignments(id);
   const totalSubmissions = tareasDemo.reduce((total, task) => total + task.submissions, 0);
 
   return (

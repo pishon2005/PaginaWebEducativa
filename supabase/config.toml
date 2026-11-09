@@ -11,6 +11,8 @@ port = 54321
 # Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
 # endpoints. `public` and `graphql_public` schemas are included by default.
 schemas = ["public", "graphql_public"]
+# Require explicit grants for tables created in the exposed public schema.
+auto_expose_new_tables = false
 # Extra schemas to add to the search_path of every request.
 extra_search_path = ["public", "extensions"]
 # The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
@@ -115,15 +117,46 @@ port = 54324
 
 [storage]
 enabled = true
-# The maximum file size allowed (e.g. "5MB", "500KB").
+# Global ceiling; bucket-specific limits below may be lower.
 file_size_limit = "50MiB"
 
-# Uncomment to configure local storage buckets
-# [storage.buckets.images]
-# public = false
-# file_size_limit = "50MiB"
-# allowed_mime_types = ["image/png", "image/jpeg"]
-# objects_path = "./images"
+[storage.buckets.profiles]
+public = false
+file_size_limit = "5MiB"
+allowed_mime_types = ["image/jpeg", "image/png", "image/webp"]
+
+[storage.buckets.documents]
+public = false
+file_size_limit = "50MiB"
+allowed_mime_types = ["application/pdf", "image/jpeg", "image/png"]
+
+[storage.buckets.submissions]
+public = false
+file_size_limit = "50MiB"
+allowed_mime_types = ["application/pdf", "application/zip", "text/plain", "image/jpeg", "image/png"]
+
+[storage.buckets.payments]
+public = false
+file_size_limit = "10MiB"
+allowed_mime_types = ["application/pdf", "image/jpeg", "image/png"]
+
+[storage.buckets.learning-materials]
+public = false
+file_size_limit = "25MiB"
+allowed_mime_types = ["application/pdf"]
+
+[storage.buckets.media]
+public = false
+file_size_limit = "50MiB"
+allowed_mime_types = ["video/mp4", "video/quicktime", "video/webm"]
+
+[storage.buckets.attachments]
+public = false
+file_size_limit = "15MiB"
+allowed_mime_types = ["application/pdf", "application/zip", "image/jpeg", "image/png"]
+
+[functions.validate-private-file]
+verify_jwt = true
 
 # Allow connections via S3 compatible clients
 [storage.s3_protocol]
@@ -157,11 +190,11 @@ max_indexes = 5
 enabled = true
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
-site_url = "http://127.0.0.1:3000"
+site_url = "http://localhost:3000"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = ["http://localhost:3000/auth/callback"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to auth.external_url.
@@ -174,7 +207,7 @@ enable_refresh_token_rotation = true
 # Requires enable_refresh_token_rotation = true.
 refresh_token_reuse_interval = 10
 # Allow/disallow new user signups to your project.
-enable_signup = true
+enable_signup = false
 # Allow/disallow anonymous sign-ins to your project.
 enable_anonymous_sign_ins = false
 # Allow/disallow testing manual linking of accounts
@@ -219,7 +252,7 @@ web3 = 30
 
 [auth.email]
 # Allow/disallow new user signups via email to your project.
-enable_signup = true
+enable_signup = false
 # If enabled, a user will be required to confirm any email change on both the old, and new email
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true

@@ -1,8 +1,9 @@
 import { TeacherCourseHeader } from "@/components/shared/teacher-course-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { getDemoCourse } from "@/lib/demo-courses";
-import { getAssignmentsByCourse } from "@/lib/demo-data";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
+import { getUnavailableAssignments } from "@/lib/services/unavailable-data";
+import { notFound } from "next/navigation";
 
 export default async function ProfesorTareaDetallePage({
   params,
@@ -10,8 +11,12 @@ export default async function ProfesorTareaDetallePage({
   params: Promise<{ id: string; tareaId: string }>;
 }) {
   const { id, tareaId } = await params;
-  const course = getDemoCourse(id);
-  const assignment = getAssignmentsByCourse(id).find((task) => task.id === Number(tareaId)) ?? getAssignmentsByCourse(id)[0];
+  const course = getUnavailableCourse(id);
+  const assignment = getUnavailableAssignments(id).find((task) => task.id === Number(tareaId));
+
+  if (!assignment) {
+    notFound();
+  }
 
   return (
     <div className="space-y-5">

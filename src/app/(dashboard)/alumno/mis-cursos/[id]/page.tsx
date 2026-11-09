@@ -4,8 +4,8 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { CheckCircle2, CirclePlay } from "lucide-react";
-import { getDemoCourse } from "@/lib/demo-courses";
-import { getDemoCourseContent } from "@/lib/demo-course-content";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
+import { getUnavailableCourseContent } from "@/lib/services/unavailable-content";
 
 export default async function AlumnoCursoPage({
   params,
@@ -13,8 +13,8 @@ export default async function AlumnoCursoPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getDemoCourse(id);
-  const courseModules = getDemoCourseContent(id);
+  const course = getUnavailableCourse(id);
+  const courseModules = getUnavailableCourseContent(id);
 
   return (
     <div>

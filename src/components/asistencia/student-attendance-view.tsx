@@ -44,10 +44,6 @@ export function StudentAttendanceView({
       .slice(0, 3);
   }, [data.clases]);
 
-  const clasesPasadas = useMemo(() => {
-    return data.clases.filter((c) => c.asistencia && c.asistencia.estado !== null);
-  }, [data.clases]);
-
   const getIconoEstado = (estado: EstadoAsistencia) => {
       switch (estado) {
         case "presente": return CheckCircle2;

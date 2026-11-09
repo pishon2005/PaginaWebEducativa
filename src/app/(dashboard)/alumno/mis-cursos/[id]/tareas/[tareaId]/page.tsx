@@ -2,7 +2,8 @@ import { StudentCourseHeader } from "@/components/shared/student-course-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DemoAssignmentSubmission } from "@/components/forms/demo-assignment-submission";
 import Link from "next/link";
-import { getAssignmentsByCourse } from "@/lib/demo-data";
+import { getUnavailableAssignments } from "@/lib/services/unavailable-data";
+import { notFound } from "next/navigation";
 
 export default async function AlumnoTareaDetallePage({
   params,
@@ -10,7 +11,12 @@ export default async function AlumnoTareaDetallePage({
   params: Promise<{ id: string; tareaId: string }>;
 }) {
   const { id, tareaId } = await params;
-  const assignment = getAssignmentsByCourse(id).find((task) => task.id === Number(tareaId)) ?? getAssignmentsByCourse(id)[0];
+  const assignment = getUnavailableAssignments(id).find((task) => task.id === Number(tareaId));
+
+  if (!assignment) {
+    notFound();
+  }
+
   const assignmentTitle = assignment.title;
 
   return (

@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PaymentReviewActions } from "@/components/shared/payment-review-actions";
-import { demoPayments, getCourseById } from "@/lib/demo-data";
+import { unavailablePayments, getUnavailableCourse } from "@/lib/services/unavailable-data";
 
 export default async function AdminPagoDetallePage({
   params,
@@ -10,8 +10,8 @@ export default async function AdminPagoDetallePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const payment = demoPayments.find((entry) => entry.id === Number(id)) ?? demoPayments[0];
-  const course = getCourseById(payment.courseId);
+  const payment = unavailablePayments.find((entry) => entry.id === Number(id)) ?? unavailablePayments[0];
+  const course = getUnavailableCourse(payment.courseId);
 
   return (
     <div>

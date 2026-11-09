@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { StudentCourseHeader } from "@/components/shared/student-course-header";
 import { ArrowRight, CheckCircle2, Clock3 } from "lucide-react";
-import { getDemoCourse } from "@/lib/demo-courses";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
 
 export default async function AlumnoQuizzesPage({
   params,
@@ -9,7 +9,7 @@ export default async function AlumnoQuizzesPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const course = getDemoCourse(id);
+  const course = getUnavailableCourse(id);
 
   return (
     <div className="space-y-5">

@@ -4,7 +4,7 @@ import { DemoChat } from "@/components/shared/demo-chat";
 export default function ProfesorChatInboxPage() {
   return (
     <div className="space-y-5">
-      <PageHeader title="Mensajes" description="Atiende consultas y conversaciones de tus cursos" />
+      <PageHeader title="Mensajes" description="Conversa en privado con tus alumnos inscritos o con administración" />
       <DemoChat role="profesor" />
     </div>
   );

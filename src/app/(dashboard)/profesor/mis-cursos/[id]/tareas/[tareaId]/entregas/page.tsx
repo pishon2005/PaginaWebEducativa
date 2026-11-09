@@ -1,6 +1,6 @@
 import { TeacherCourseHeader } from "@/components/shared/teacher-course-header";
 import { DemoGradingQueue } from "@/components/shared/demo-grading-queue";
-import { getDemoCourse } from "@/lib/demo-courses";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
 
 export default async function ProfesorEntregasPage({
   params,
@@ -8,7 +8,7 @@ export default async function ProfesorEntregasPage({
   params: Promise<{ id: string; tareaId: string }>;
 }) {
   const { id, tareaId } = await params;
-  const course = getDemoCourse(id);
+  const course = getUnavailableCourse(id);
 
   return (
     <div className="space-y-5">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Monitor, Users, AlertTriangle, Clock, CheckCircle2, XCircle } from "lucide-react";
 import type { ModalidadAsistencia, AsistenciaClaseAlumno, EstadoAsistencia } from "@/lib/asistencia/tipos";
 import { MODALIDAD_ASISTENCIA_LABELS, ESTADO_ASISTENCIA_LABELS, ESTADO_ASISTENCIA_COLORES } from "@/lib/asistencia/tipos";
@@ -17,26 +17,21 @@ export function ModalitySelector({
   deshabilitado = false,
 }: ModalitySelectorProps) {
   const [modalidadSeleccionada, setModalidadSeleccionada] = useState<ModalidadAsistencia | null>(clase.modalidadElegida);
+  const [modalidadInicial, setModalidadInicial] = useState(clase.modalidadElegida);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [exito, setExito] = useState<string | null>(null);
 
-  // Sincronizar con prop usando useEffect
-  useEffect(() => {
+  if (modalidadInicial !== clase.modalidadElegida) {
+    setModalidadInicial(clase.modalidadElegida);
     setModalidadSeleccionada(clase.modalidadElegida);
-  }, [clase.modalidadElegida]);
+  }
 
   const puedeCambiar = clase.puedeCambiarModalidad && !deshabilitado && !cargando;
   const esSoloVirtual = clase.modalidadClase === "virtual";
   const esSoloPresencial = clase.modalidadClase === "presencial";
 
-    // Sincronizar con prop usando useEffect con key
-    useEffect(() => {
-      setModalidadSeleccionada(clase.modalidadElegida);
-    }, [clase.modalidadElegida]);
-
-    // Si la clase no es híbrida, no hay elección
-    if (esSoloVirtual) {
+  if (esSoloVirtual) {
     return (
       <div className="rounded-xl border border-[#e7e5e4] bg-white p-4">
         <div className="flex items-center gap-3">

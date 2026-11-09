@@ -3,12 +3,20 @@ import * as dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
 
+const migrationUrl = process.env.DATABASE_MIGRATION_URL;
+if (!migrationUrl) {
+  throw new Error(
+    "DATABASE_MIGRATION_URL debe configurarse para ejecutar Drizzle Kit.",
+  );
+}
+
 export default defineConfig({
   schema: "./src/lib/db/schema",
-  out: "./src/lib/db/migrations",
+  // Draft output only; applied migrations remain exclusively under supabase/migrations.
+  out: "./supabase/migration-drafts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: migrationUrl,
   },
   verbose: true,
   strict: true,

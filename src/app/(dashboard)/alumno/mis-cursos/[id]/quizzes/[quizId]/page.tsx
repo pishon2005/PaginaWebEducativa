@@ -1,6 +1,6 @@
 import { StudentCourseHeader } from "@/components/shared/student-course-header";
 import { DemoQuiz } from "@/components/forms/demo-quiz";
-import { getDemoCourse } from "@/lib/demo-courses";
+import { getUnavailableCourse } from "@/lib/services/unavailable-data";
 
 export default async function AlumnoQuizAttemptPage({
   params,
@@ -8,7 +8,7 @@ export default async function AlumnoQuizAttemptPage({
   params: Promise<{ id: string; quizId: string }>;
 }) {
   const { id, quizId } = await params;
-  const course = getDemoCourse(id);
+  const course = getUnavailableCourse(id);
 
   return (
     <div className="space-y-5">
